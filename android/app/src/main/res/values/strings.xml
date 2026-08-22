@@ -17,4 +17,28 @@
     <string name="home_sign_out">Sign out</string>
     <string name="session_expired">Your session expired. Please sign in again.</string>
     <string name="retry">Retry</string>
+
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_vehicles">Vehicles</string>
+    <string name="nav_trips">Trips</string>
+    <string name="nav_more">More</string>
+
+    <string name="dashboard_title">Fleet overview</string>
+    <string name="dashboard_recent_incidents">Recent incidents</string>
+    <string name="dashboard_no_incidents">No incidents reported</string>
+    <string name="dashboard_updated">Updated %1$s</string>
+
+    <string name="stat_total_vehicles">Total vehicles</string>
+    <string name="stat_available">Available</string>
+    <string name="stat_on_trip">On trip</string>
+    <string name="stat_maintenance">In maintenance</string>
+    <string name="stat_inactive">Inactive</string>
+    <string name="stat_active_trips">Active trips</string>
+    <string name="stat_distance_today">Today\'s distance (km)</string>
+    <string name="stat_drivers_active">Active drivers</string>
+    <string name="stat_maintenance_due">Maintenance due</string>
+    <string name="stat_open_incidents">Open incidents</string>
+    <string name="stat_expiring_docs">Expiring documents</string>
+
+    <string name="coming_soon">%1$s \u2014 coming next</string>
 </resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/manager_nav"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.dashboard.DashboardFragment"
+        android:label="@string/nav_dashboard"
+        tools:layout="@layout/fragment_dashboard"
+        xmlns:tools="http://schemas.android.com/tools" />
+
+    <fragment
+        android:id="@+id/vehiclesFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.placeholder.VehiclesFragment"
+        android:label="@string/nav_vehicles" />
+
+    <fragment
+        android:id="@+id/tripsFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.placeholder.TripsFragment"
+        android:label="@string/nav_trips" />
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.more.MoreFragment"
+        android:label="@string/nav_more" />
+</navigation>

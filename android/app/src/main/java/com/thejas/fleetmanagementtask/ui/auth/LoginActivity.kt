@@ -1,6 +1,5 @@
 package com.thejas.fleetmanagementtask.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -12,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
-import com.thejas.fleetmanagementtask.MainActivity
 import com.thejas.fleetmanagementtask.R
 import com.thejas.fleetmanagementtask.databinding.ActivityLoginBinding
 import kotlinx.coroutines.launch
@@ -26,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (viewModel.isAlreadySignedIn) {
-            goHome()
+            goHome(viewModel.storedRole)
             return
         }
 
@@ -77,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
                 launch {
                     viewModel.events.collect { event ->
                         when (event) {
-                            is LoginEvent.LoggedIn -> goHome()
+                            is LoginEvent.LoggedIn -> goHome(event.role)
                             is LoginEvent.ShowMessage ->
                                 Snackbar.make(binding.root, event.message, Snackbar.LENGTH_LONG)
                                     .show()
@@ -86,11 +84,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun goHome() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 
     private fun android.view.View.isVisible(visible: Boolean) {

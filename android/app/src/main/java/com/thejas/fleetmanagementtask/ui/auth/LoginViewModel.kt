@@ -43,6 +43,7 @@ class LoginViewModel(private val auth: AuthRepository) : ViewModel() {
     val events: Flow<LoginEvent> = _events.receiveAsFlow()
 
     val isAlreadySignedIn: Boolean get() = auth.isLoggedIn
+    val storedRole: String? get() = auth.role
 
     fun onEmailChanged(value: String) {
         _state.value = _state.value.copy(email = value, emailError = null)
