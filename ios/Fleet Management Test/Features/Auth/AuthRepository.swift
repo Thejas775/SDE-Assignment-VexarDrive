@@ -9,6 +9,9 @@ protocol AuthRepositoryProtocol: Sendable {
     /// Signs in and persists the session. Returns the signed-in user.
     func login(email: String, password: String) async throws -> User
 
+    /// Creates an account and signs straight in with it.
+    func register(_ draft: RegisterRequest) async throws -> User
+
     /// Ends the session. Always clears local state, even if the server call fails.
     func logout() async
 
@@ -52,6 +55,23 @@ struct AuthRepository: AuthRepositoryProtocol {
             )
         }
         return response.user
+    }
+
+    /// `POST /auth/register` answers 201 with the user but no tokens, so the
+    /// session only exists after the login that follows.
+    func register(_ draft: RegisterRequest) async throws -> User {
+        let normalised = RegisterRequest(
+            email: draft.email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
+            password: draft.password,
+            fullName: draft.fullName.trimmingCharacters(in: .whitespacesAndNewlines),
+            phoneNumber: draft.phoneNumber?.trimmingCharacters(in: .whitespacesAndNewlines),
+            role: draft.role,
+            licenseNumber: draft.licenseNumber?.trimmingCharacters(in: .whitespacesAndNewlines),
+            licenseExpiry: draft.licenseExpiry
+        )
+
+        _ = try await client.send(.register(normalised), as: User.self)
+        return try await login(email: normalised.email, password: normalised.password)
     }
 
     func logout() async {

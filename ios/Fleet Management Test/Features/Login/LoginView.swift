@@ -10,6 +10,7 @@ struct LoginView: View {
     @StateObject private var viewModel: LoginViewModel
     @EnvironmentObject private var session: SessionController
     @FocusState private var focus: Field?
+    @State private var isShowingSignUp = false
 
     private enum Field { case email, password }
 
@@ -35,6 +36,7 @@ struct LoginView: View {
                 }
 
                 signInButton
+                createAccountButton
             }
             .padding(24)
             .frame(maxWidth: 480)
@@ -42,6 +44,9 @@ struct LoginView: View {
         }
         .background(Color(.systemGroupedBackground))
         .scrollDismissesKeyboard(.interactively)
+        .sheet(isPresented: $isShowingSignUp) {
+            SignUpView(session: session)
+        }
     }
 
     // MARK: - Pieces
@@ -64,6 +69,7 @@ struct LoginView: View {
     private var emailField: some View {
         LabeledField(title: "Email", error: viewModel.emailError) {
             TextField("ops@fleet.in", text: $viewModel.email)
+                .accessibilityIdentifier("login.email")
                 .keyboardType(.emailAddress)
                 .textContentType(.username)
                 .textInputAutocapitalization(.never)
@@ -80,8 +86,10 @@ struct LoginView: View {
                 Group {
                     if viewModel.isPasswordVisible {
                         TextField("Your password", text: $viewModel.password)
+                            .accessibilityIdentifier("login.password.visible")
                     } else {
                         SecureField("Your password", text: $viewModel.password)
+                            .accessibilityIdentifier("login.password")
                     }
                 }
                 .textContentType(.password)
@@ -119,8 +127,23 @@ struct LoginView: View {
             .frame(height: 50)
         }
         .buttonStyle(.borderedProminent)
+        .accessibilityIdentifier("login.submit")
         .disabled(!viewModel.canSubmit)
         .accessibilityLabel(viewModel.isSubmitting ? "Signing in" : "Sign in")
+    }
+
+    private var createAccountButton: some View {
+        HStack(spacing: 4) {
+            Text("No account yet?")
+                .foregroundStyle(.secondary)
+            Button("Create one") {
+                focus = nil
+                isShowingSignUp = true
+            }
+            .accessibilityIdentifier("login.createAccount")
+        }
+        .font(.subheadline)
+        .frame(maxWidth: .infinity)
     }
 
     private func submit() {
@@ -155,6 +178,7 @@ struct LabeledField<Content: View>: View {
 
             if let error {
                 Text(error)
+                    .accessibilityIdentifier("field.error")
                     .font(.caption)
                     .foregroundStyle(.red)
                     .accessibilityLabel("\(title) error: \(error)")
@@ -184,6 +208,7 @@ struct Banner: View {
             in: RoundedRectangle(cornerRadius: 10, style: .continuous)
         )
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier(kind == .error ? "banner.error" : "banner.info")
     }
 }
 

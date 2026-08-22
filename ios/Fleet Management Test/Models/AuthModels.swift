@@ -20,6 +20,20 @@ struct LogoutRequest: Encodable, Sendable {
     let refreshToken: String
 }
 
+/// `POST /auth/register`. The licence fields are required for a DRIVER and
+/// must be absent for a FLEET_MANAGER, so they are optional here and the view
+/// model decides which apply.
+struct RegisterRequest: Encodable, Sendable {
+    let email: String
+    let password: String
+    let fullName: String
+    let phoneNumber: String?
+    let role: UserRole
+    let licenseNumber: String?
+    /// YYYY-MM-DD, the plain-date shape the API uses for expiries.
+    let licenseExpiry: String?
+}
+
 // MARK: - Responses
 
 /// `POST /auth/login` and `POST /auth/refresh` both return this envelope.

@@ -43,6 +43,10 @@ extension Endpoint {
         )
     }
 
+    static func register(_ body: RegisterRequest) -> Endpoint {
+        Endpoint(method: .post, path: "auth/register", body: body, requiresAuth: false)
+    }
+
     static func refresh(refreshToken: String) -> Endpoint {
         Endpoint(
             method: .post,

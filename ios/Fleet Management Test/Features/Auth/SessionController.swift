@@ -59,6 +59,12 @@ final class SessionController: ObservableObject {
         phase = .signedIn(user)
     }
 
+    func signUp(_ draft: RegisterRequest) async throws {
+        let user = try await repository.register(draft)
+        expiryNotice = nil
+        phase = .signedIn(user)
+    }
+
     func signOut() async {
         await repository.logout()
         expiryNotice = nil

@@ -106,6 +106,17 @@ final class FakeAuthRepository: AuthRepositoryProtocol, @unchecked Sendable {
         return user
     }
 
+    var registerResult: Result<User, APIError>?
+    private var _registerDrafts: [RegisterRequest] = []
+    var registerDrafts: [RegisterRequest] { lock.withLock { _registerDrafts } }
+
+    func register(_ draft: RegisterRequest) async throws -> User {
+        lock.withLock { _registerDrafts.append(draft) }
+        let user = try (registerResult ?? loginResult).get()
+        stored = user
+        return user
+    }
+
     func logout() async {
         didLogout = true
         stored = nil
