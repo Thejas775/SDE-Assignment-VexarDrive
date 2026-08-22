@@ -20,6 +20,7 @@ import com.thejas.fleetmanagementtask.core.latitudeString
 import com.thejas.fleetmanagementtask.core.longitudeString
 import com.thejas.fleetmanagementtask.databinding.DialogOdometerBinding
 import com.thejas.fleetmanagementtask.databinding.FragmentDriverHomeBinding
+import com.thejas.fleetmanagementtask.service.LocationTrackingService
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
 import kotlinx.coroutines.launch
 
@@ -62,6 +63,7 @@ class DriverHomeFragment : Fragment() {
 
     private fun render(state: DriverHomeUiState) {
         binding.swipeRefresh.isRefreshing = state.isLoading
+        syncTrackingWith(state)
 
         state.vehicle?.let { vehicle ->
             binding.vehicleRegistration.text = vehicle.registrationNumber
@@ -109,15 +111,31 @@ class DriverHomeFragment : Fragment() {
     }
 
     private fun handle(event: DriverHomeEvent) = when (event) {
-        is DriverHomeEvent.Started ->
+        is DriverHomeEvent.Started -> {
+            LocationTrackingService.start(requireContext().applicationContext, event.trip.id)
             Snackbar.make(binding.root, R.string.trip_started, Snackbar.LENGTH_SHORT).show()
-        is DriverHomeEvent.Completed -> Snackbar.make(
-            binding.root,
-            getString(R.string.trip_completed, event.trip.distanceKm ?: "-"),
-            Snackbar.LENGTH_LONG,
-        ).show()
+        }
+        is DriverHomeEvent.Completed -> {
+            LocationTrackingService.stop(requireContext().applicationContext)
+            Snackbar.make(
+                binding.root,
+                getString(R.string.trip_completed, event.trip.distanceKm ?: "-"),
+                Snackbar.LENGTH_LONG,
+            ).show()
+        }
         is DriverHomeEvent.Message ->
             Snackbar.make(binding.root, event.text, Snackbar.LENGTH_LONG).show()
+    }
+
+    /**
+     * Reconnects tracking after the app is killed and reopened mid-trip:
+     * startForegroundService on an already-running service is a no-op.
+     */
+    private fun syncTrackingWith(state: DriverHomeUiState) {
+        val trip = state.trip ?: return
+        if (trip.isActive) {
+            LocationTrackingService.start(requireContext().applicationContext, trip.id)
+        }
     }
 
     private fun askOdometer(start: Boolean) {

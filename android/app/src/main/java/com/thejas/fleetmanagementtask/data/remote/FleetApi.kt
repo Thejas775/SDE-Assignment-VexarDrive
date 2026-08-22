@@ -8,6 +8,8 @@ import com.thejas.fleetmanagementtask.data.remote.dto.DriverCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverPerformanceDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverUpdateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.LocationBatchRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.LocationIngestResultDto
 import com.thejas.fleetmanagementtask.data.remote.dto.LocationPointDto
 import com.thejas.fleetmanagementtask.data.remote.dto.TripCancelRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.TripCreateRequest
@@ -187,4 +189,9 @@ interface FleetApi {
         @Path("id") id: String,
         @Body body: TripCompleteRequest,
     ): Response<TripDto>
+
+    @POST("locations")
+    suspend fun postLocations(
+        @Body body: LocationBatchRequest,
+    ): Response<LocationIngestResultDto>
 }

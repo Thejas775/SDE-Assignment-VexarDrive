@@ -147,4 +147,10 @@
     <string name="trip_started">Trip started</string>
     <string name="trip_completed">Trip completed · %1$s km</string>
     <string name="grant_permission">Allow</string>
+
+    <string name="tracking_channel">Trip tracking</string>
+    <string name="tracking_title">Trip in progress</string>
+    <string name="tracking_active">Recording your route</string>
+    <string name="tracking_sent">Sent %1$d points · %2$d queued</string>
+    <string name="tracking_queued">Offline · %1$d points queued</string>
 </resources>
