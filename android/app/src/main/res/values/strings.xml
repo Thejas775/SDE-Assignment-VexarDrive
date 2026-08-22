@@ -41,4 +41,30 @@
     <string name="stat_expiring_docs">Expiring documents</string>
 
     <string name="coming_soon">%1$s \u2014 coming next</string>
+
+    <string name="vehicles_search_hint">Search registration, make or model</string>
+    <string name="vehicles_empty">No vehicles match those filters</string>
+    <string name="vehicles_add">Add vehicle</string>
+    <string name="vehicles_count">%1$d vehicles</string>
+    <string name="vehicle_docs_expiring">Documents expiring soon</string>
+    <string name="filter_all">All</string>
+
+    <string name="vehicle_registration">Registration number</string>
+    <string name="vehicle_type">Type</string>
+    <string name="vehicle_make">Make</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_year">Year</string>
+    <string name="vehicle_fuel">Fuel</string>
+    <string name="vehicle_mileage">Mileage (km)</string>
+    <string name="vehicle_status">Status</string>
+    <string name="vehicle_insurance">Insurance expiry</string>
+    <string name="vehicle_registration_expiry">Registration expiry</string>
+    <string name="vehicle_edit">Edit</string>
+    <string name="vehicle_activate">Activate</string>
+    <string name="vehicle_deactivate">Deactivate</string>
+    <string name="vehicle_qr">Vehicle QR code</string>
+    <string name="vehicle_qr_hint">Scan to open this vehicle</string>
+    <string name="save">Save</string>
+    <string name="error_required">Required</string>
+    <string name="error_year_range">Enter a year between 1900 and 2100</string>
 </resources>

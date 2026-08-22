@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/registrationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                    tools:text="KA-01-AB-1234" />
+
+                <TextView
+                    android:id="@+id/detailsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="Tata Ace · 2022" />
+            </LinearLayout>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/statusChip"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:clickable="false"
+                tools:text="Available" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
+
+                <TableRow>
+                    <TextView android:text="@string/vehicle_type" android:textAppearance="?attr/textAppearanceBodySmall" />
+                    <TextView android:id="@+id/typeValue" android:textAppearance="?attr/textAppearanceBodyMedium" tools:text="Truck" />
+                </TableRow>
+
+                <TableRow android:paddingTop="6dp">
+                    <TextView android:text="@string/vehicle_fuel" android:textAppearance="?attr/textAppearanceBodySmall" />
+                    <TextView android:id="@+id/fuelValue" android:textAppearance="?attr/textAppearanceBodyMedium" tools:text="Diesel" />
+                </TableRow>
+
+                <TableRow android:paddingTop="6dp">
+                    <TextView android:text="@string/vehicle_mileage" android:textAppearance="?attr/textAppearanceBodySmall" />
+                    <TextView android:id="@+id/mileageValue" android:textAppearance="?attr/textAppearanceBodyMedium" tools:text="48596 km" />
+                </TableRow>
+
+                <TableRow android:paddingTop="6dp">
+                    <TextView android:text="@string/vehicle_insurance" android:textAppearance="?attr/textAppearanceBodySmall" />
+                    <LinearLayout android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:id="@+id/insuranceValue" android:textAppearance="?attr/textAppearanceBodyMedium" tools:text="2029-09-05" />
+                        <ImageView android:id="@+id/insuranceWarning" android:layout_width="18dp" android:layout_height="18dp"
+                            android:layout_marginStart="6dp" android:src="@drawable/ic_warning"
+                            android:contentDescription="@string/vehicle_docs_expiring" android:visibility="gone" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow android:paddingTop="6dp">
+                    <TextView android:text="@string/vehicle_registration_expiry" android:textAppearance="?attr/textAppearanceBodySmall" />
+                    <LinearLayout android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:id="@+id/registrationValue" android:textAppearance="?attr/textAppearanceBodyMedium" tools:text="2030-01-01" />
+                        <ImageView android:id="@+id/registrationWarning" android:layout_width="18dp" android:layout_height="18dp"
+                            android:layout_marginStart="6dp" android:src="@drawable/ic_warning"
+                            android:contentDescription="@string/vehicle_docs_expiring" android:visibility="gone" />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/qrImage"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/vehicle_qr"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="@string/vehicle_qr_hint"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/toggleActiveButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                tools:text="Deactivate" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/vehicle_edit" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

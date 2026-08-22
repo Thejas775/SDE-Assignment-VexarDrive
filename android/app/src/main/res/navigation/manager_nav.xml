@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/vehiclesFragment"
-        android:name="com.thejas.fleetmanagementtask.ui.placeholder.VehiclesFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.vehicles.VehicleListFragment"
         android:label="@string/nav_vehicles" />
 
     <fragment

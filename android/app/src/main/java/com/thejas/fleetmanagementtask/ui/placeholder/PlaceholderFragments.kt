@@ -24,6 +24,4 @@ abstract class PlaceholderFragment(@StringRes private val titleRes: Int) : Fragm
     }
 }
 
-class VehiclesFragment : PlaceholderFragment(R.string.nav_vehicles)
-
 class TripsFragment : PlaceholderFragment(R.string.nav_trips)
