@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/dashboardFragment" android:icon="@drawable/ic_dashboard" android:title="@string/nav_dashboard" />
     <item android:id="@+id/vehiclesFragment" android:icon="@drawable/ic_vehicles" android:title="@string/nav_vehicles" />
+    <item android:id="@+id/driversFragment" android:icon="@drawable/ic_drivers" android:title="@string/nav_drivers" />
     <item android:id="@+id/tripsFragment" android:icon="@drawable/ic_trips" android:title="@string/nav_trips" />
     <item android:id="@+id/moreFragment" android:icon="@drawable/ic_more" android:title="@string/nav_more" />
 </menu>

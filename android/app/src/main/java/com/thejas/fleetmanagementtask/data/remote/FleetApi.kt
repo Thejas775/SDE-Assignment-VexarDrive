@@ -1,6 +1,13 @@
 package com.thejas.fleetmanagementtask.data.remote
 
+import com.thejas.fleetmanagementtask.data.remote.dto.AssignmentCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.AssignmentDto
+import com.thejas.fleetmanagementtask.data.remote.dto.AssignmentEndRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.DashboardDto
+import com.thejas.fleetmanagementtask.data.remote.dto.DriverCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.DriverDto
+import com.thejas.fleetmanagementtask.data.remote.dto.DriverPerformanceDto
+import com.thejas.fleetmanagementtask.data.remote.dto.DriverUpdateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.PageDto
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
@@ -53,4 +60,63 @@ interface FleetApi {
 
     @POST("vehicles/{id}/deactivate")
     suspend fun deactivateVehicle(@Path("id") id: String): Response<VehicleDto>
+
+    // ------------------------------------------------------------ drivers --
+
+    @GET("drivers")
+    suspend fun drivers(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("search") search: String? = null,
+        @Query("status") status: String? = null,
+        @Query("license_expiring") licenseExpiring: Boolean? = null,
+    ): Response<PageDto<DriverDto>>
+
+    @GET("drivers/{id}")
+    suspend fun driver(@Path("id") id: String): Response<DriverDto>
+
+    @POST("drivers")
+    suspend fun createDriver(@Body body: DriverCreateRequest): Response<DriverDto>
+
+    @PUT("drivers/{id}")
+    suspend fun updateDriver(
+        @Path("id") id: String,
+        @Body body: DriverUpdateRequest,
+    ): Response<DriverDto>
+
+    @POST("drivers/{id}/activate")
+    suspend fun activateDriver(@Path("id") id: String): Response<DriverDto>
+
+    @POST("drivers/{id}/deactivate")
+    suspend fun deactivateDriver(@Path("id") id: String): Response<DriverDto>
+
+    @POST("drivers/{id}/suspend")
+    suspend fun suspendDriver(@Path("id") id: String): Response<DriverDto>
+
+    @GET("drivers/{id}/performance")
+    suspend fun driverPerformance(@Path("id") id: String): Response<DriverPerformanceDto>
+
+    // -------------------------------------------------------- assignments --
+
+    @GET("assignments")
+    suspend fun assignments(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("driver_id") driverId: String? = null,
+        @Query("vehicle_id") vehicleId: String? = null,
+        @Query("status") status: String? = null,
+        @Query("active_on") activeOn: String? = null,
+    ): Response<PageDto<AssignmentDto>>
+
+    @POST("assignments")
+    suspend fun createAssignment(@Body body: AssignmentCreateRequest): Response<AssignmentDto>
+
+    @POST("assignments/{id}/end")
+    suspend fun endAssignment(
+        @Path("id") id: String,
+        @Body body: AssignmentEndRequest,
+    ): Response<AssignmentDto>
+
+    @POST("assignments/{id}/cancel")
+    suspend fun cancelAssignment(@Path("id") id: String): Response<AssignmentDto>
 }

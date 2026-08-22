@@ -6,8 +6,10 @@ import com.thejas.fleetmanagementtask.data.local.TokenStore
 import com.thejas.fleetmanagementtask.data.remote.ApiFactory
 import com.thejas.fleetmanagementtask.data.remote.AuthApi
 import com.thejas.fleetmanagementtask.data.remote.FleetApi
+import com.thejas.fleetmanagementtask.data.repository.AssignmentRepository
 import com.thejas.fleetmanagementtask.data.repository.AuthRepository
 import com.thejas.fleetmanagementtask.data.repository.DashboardRepository
+import com.thejas.fleetmanagementtask.data.repository.DriverRepository
 import com.thejas.fleetmanagementtask.data.repository.VehicleRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -42,6 +44,8 @@ object ServiceLocator {
     val authRepository: AuthRepository by lazy { AuthRepository(authApi, tokenStore) }
     val dashboardRepository: DashboardRepository by lazy { DashboardRepository(fleetApi) }
     val vehicleRepository: VehicleRepository by lazy { VehicleRepository(fleetApi) }
+    val driverRepository: DriverRepository by lazy { DriverRepository(fleetApi) }
+    val assignmentRepository: AssignmentRepository by lazy { AssignmentRepository(fleetApi) }
 
     fun init(context: Context) {
         appContext = context.applicationContext
