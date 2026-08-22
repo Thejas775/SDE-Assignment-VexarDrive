@@ -12,7 +12,12 @@ data class RegisterRequest(
     val password: String,
     @SerialName("full_name") val fullName: String,
     @SerialName("phone_number") val phoneNumber: String? = null,
-    val role: String = "DRIVER",
+    // No default: kotlinx-serialization omits properties that equal their
+    // default, which would leave the role out of the request entirely.
+    val role: String,
+    // Required by the API when role is DRIVER, so the account is usable at once.
+    @SerialName("license_number") val licenseNumber: String? = null,
+    @SerialName("license_expiry") val licenseExpiry: String? = null,
 )
 
 @Serializable

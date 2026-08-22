@@ -7,9 +7,8 @@
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp">
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,8 +50,9 @@
 
         <ImageView
             android:id="@+id/warningIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:alpha="0.85"
             android:contentDescription="@string/driver_licence_expiring"
             android:src="@drawable/ic_warning"
             android:visibility="gone"
@@ -63,7 +63,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/statusChip"
-            style="@style/Widget.Material3.Chip.Assist"
+            style="@style/Widget.Fleet.Chip.Status"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:clickable="false"

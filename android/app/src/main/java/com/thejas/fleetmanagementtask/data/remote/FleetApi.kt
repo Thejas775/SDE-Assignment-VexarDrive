@@ -8,10 +8,19 @@ import com.thejas.fleetmanagementtask.data.remote.dto.DriverCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverPerformanceDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverUpdateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentAssignRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentDto
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentStatusRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.LocationBatchRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.LocationIngestResultDto
 import com.thejas.fleetmanagementtask.data.remote.dto.LocationPointDto
 import com.thejas.fleetmanagementtask.data.remote.dto.TripCancelRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.TripCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.TripCompleteRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.TripDto
+import com.thejas.fleetmanagementtask.data.remote.dto.TripStartRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.TripStatusRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.PageDto
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
@@ -153,4 +162,76 @@ interface FleetApi {
         @Path("id") id: String,
         @Query("limit") limit: Int = 1000,
     ): Response<List<LocationPointDto>>
+
+    // ------------------------------------------------------------- driver --
+
+    @GET("vehicles/my-vehicle")
+    suspend fun myVehicle(): Response<VehicleDto>
+
+    @GET("trips/my")
+    suspend fun myTrips(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("status") status: String? = null,
+        @Query("active_only") activeOnly: Boolean? = null,
+    ): Response<PageDto<TripDto>>
+
+    @POST("trips/{id}/start")
+    suspend fun startTrip(
+        @Path("id") id: String,
+        @Body body: TripStartRequest,
+    ): Response<TripDto>
+
+    @POST("trips/{id}/status")
+    suspend fun updateTripStatus(
+        @Path("id") id: String,
+        @Body body: TripStatusRequest,
+    ): Response<TripDto>
+
+    @POST("trips/{id}/complete")
+    suspend fun completeTrip(
+        @Path("id") id: String,
+        @Body body: TripCompleteRequest,
+    ): Response<TripDto>
+
+    @POST("locations")
+    suspend fun postLocations(
+        @Body body: LocationBatchRequest,
+    ): Response<LocationIngestResultDto>
+
+    // ---------------------------------------------------------- incidents --
+
+    @GET("incidents")
+    suspend fun incidents(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("status") status: String? = null,
+        @Query("severity") severity: String? = null,
+        @Query("vehicle_id") vehicleId: String? = null,
+        @Query("open_only") openOnly: Boolean? = null,
+    ): Response<PageDto<IncidentDto>>
+
+    @GET("incidents/my")
+    suspend fun myIncidents(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+    ): Response<PageDto<IncidentDto>>
+
+    @GET("incidents/{id}")
+    suspend fun incident(@Path("id") id: String): Response<IncidentDto>
+
+    @POST("incidents")
+    suspend fun reportIncident(@Body body: IncidentCreateRequest): Response<IncidentDto>
+
+    @POST("incidents/{id}/assign")
+    suspend fun assignIncident(
+        @Path("id") id: String,
+        @Body body: IncidentAssignRequest,
+    ): Response<IncidentDto>
+
+    @POST("incidents/{id}/status")
+    suspend fun setIncidentStatus(
+        @Path("id") id: String,
+        @Body body: IncidentStatusRequest,
+    ): Response<IncidentDto>
 }

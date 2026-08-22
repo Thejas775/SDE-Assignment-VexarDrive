@@ -2,6 +2,40 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="fleet_primary">#1B5E20</color>
-    <color name="fleet_primary_dark">#A5D6A7</color>
+
+    <!-- Brand: a deep fleet green -->
+    <color name="brand_40">#1E6B3A</color>
+    <color name="brand_80">#8FD9A8</color>
+    <color name="brand_container_light">#B6F2C8</color>
+    <color name="brand_container_dark">#054C22</color>
+    <color name="brand_on_container_light">#00210D</color>
+    <color name="brand_on_container_dark">#B6F2C8</color>
+
+    <color name="accent_40">#3E5F8A</color>
+    <color name="accent_80">#A9C7F5</color>
+
+    <!-- Status colours, shared by chips across every screen -->
+    <color name="status_available">#1B7F3B</color>
+    <color name="status_available_bg">#D7F2DF</color>
+    <color name="status_on_trip">#1B5FA8</color>
+    <color name="status_on_trip_bg">#D6E6FA</color>
+    <color name="status_maintenance">#9A5B00</color>
+    <color name="status_maintenance_bg">#FCE7C6</color>
+    <color name="status_inactive">#5B5F63</color>
+    <color name="status_inactive_bg">#E2E4E7</color>
+    <color name="status_critical">#A4232B</color>
+    <color name="status_critical_bg">#FADCDD</color>
+
+    <color name="status_available_dark">#8FD9A8</color>
+    <color name="status_available_bg_dark">#123D22</color>
+    <color name="status_on_trip_dark">#A9C7F5</color>
+    <color name="status_on_trip_bg_dark">#132F4C</color>
+    <color name="status_maintenance_dark">#F3C77A</color>
+    <color name="status_maintenance_bg_dark">#3D2A08</color>
+    <color name="status_inactive_dark">#C3C7CB</color>
+    <color name="status_inactive_bg_dark">#2A2D30</color>
+    <color name="status_critical_dark">#F2A9AC</color>
+    <color name="status_critical_bg_dark">#4A1417</color>
+
+    <color name="warning">#B25C00</color>
 </resources>

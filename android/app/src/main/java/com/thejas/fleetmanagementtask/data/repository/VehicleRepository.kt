@@ -48,6 +48,9 @@ class VehicleRepository(
 
     suspend fun byId(id: String): ApiResult<VehicleDto> = safeCall(io) { api.vehicle(id) }
 
+    /** The vehicle currently assigned to the signed-in driver. */
+    suspend fun mine(): ApiResult<VehicleDto> = safeCall(io) { api.myVehicle() }
+
     suspend fun create(body: VehicleCreateRequest): ApiResult<VehicleDto> =
         safeCall(io) { api.createVehicle(body) }
 

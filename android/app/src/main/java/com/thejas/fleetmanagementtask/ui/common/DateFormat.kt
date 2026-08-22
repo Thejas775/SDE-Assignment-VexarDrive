@@ -49,3 +49,9 @@ fun formatInstant(iso: String?): String {
     }
     return iso
 }
+
+/** Instant -> the ISO-8601 UTC string the locations endpoint expects. */
+fun isoUtc(epochMillis: Long): String =
+    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+        .apply { timeZone = TimeZone.getTimeZone("UTC") }
+        .format(epochMillis)

@@ -8,6 +8,7 @@ import com.thejas.fleetmanagementtask.data.remote.dto.ForgotPasswordDto
 import com.thejas.fleetmanagementtask.data.remote.dto.ForgotPasswordRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.LoginRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.LogoutRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.RegisterRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.ResetPasswordRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.UserDto
 import com.thejas.fleetmanagementtask.data.remote.safeCall
@@ -38,6 +39,18 @@ class AuthRepository(
                 ApiResult.Success(token.user)
             }
             is ApiResult.Failure -> result
+        }
+    }
+
+    /**
+     * Registration returns the user but no tokens, so this signs in straight
+     * afterwards; being bounced to a login form after signing up is friction
+     * for no reason.
+     */
+    suspend fun signUp(request: RegisterRequest): ApiResult<UserDto> {
+        return when (val created = safeCall(io) { api.register(request) }) {
+            is ApiResult.Success -> login(request.email, request.password)
+            is ApiResult.Failure -> created
         }
     }
 

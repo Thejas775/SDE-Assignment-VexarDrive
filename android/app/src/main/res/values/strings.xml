@@ -128,4 +128,63 @@
     <string name="trip_route_none">No GPS points recorded yet</string>
     <string name="trip_cancel">Cancel trip</string>
     <string name="trip_cancel_reason">Reason</string>
+
+    <string name="nav_my_trip">My trip</string>
+    <string name="nav_my_trips">Trips</string>
+    <string name="driver_my_vehicle">My vehicle</string>
+    <string name="driver_no_vehicle">No vehicle assigned yet</string>
+    <string name="driver_no_trip">No trip scheduled</string>
+    <string name="driver_next_trip">Next trip</string>
+    <string name="driver_current_trip">Current trip</string>
+    <string name="trip_start">Start trip</string>
+    <string name="trip_complete">Complete trip</string>
+    <string name="trip_start_odometer">Starting odometer (km)</string>
+    <string name="trip_end_odometer">Ending odometer (km)</string>
+    <string name="trip_start_title">Start %1$s</string>
+    <string name="trip_complete_title">Complete %1$s</string>
+    <string name="location_permission_rationale">Location is needed to record where the trip starts and ends.</string>
+    <string name="location_unavailable">Could not get a location fix; the trip will be recorded without one.</string>
+    <string name="trip_started">Trip started</string>
+    <string name="trip_completed">Trip completed · %1$s km</string>
+    <string name="grant_permission">Allow</string>
+
+    <string name="tracking_channel">Trip tracking</string>
+    <string name="tracking_title">Trip in progress</string>
+    <string name="tracking_active">Recording your route</string>
+    <string name="tracking_sent">Sent %1$d points · %2$d queued</string>
+    <string name="tracking_queued">Offline · %1$d points queued</string>
+
+    <string name="incidents_title">Incidents</string>
+    <string name="incidents_mine">My reports</string>
+    <string name="incidents_empty">No incidents match those filters</string>
+    <string name="incidents_count">%1$d incidents</string>
+    <string name="incident_report">Report an issue</string>
+    <string name="incident_title_label">What is wrong?</string>
+    <string name="incident_description">Describe the problem</string>
+    <string name="incident_severity">Severity</string>
+    <string name="incident_vehicle">Vehicle</string>
+    <string name="incident_reported_by">Reported by %1$s</string>
+    <string name="incident_assign_me">Assign to me</string>
+    <string name="incident_resolve">Resolve</string>
+    <string name="incident_reopen">Reopen</string>
+    <string name="incident_resolution">What was done?</string>
+    <string name="incident_resolution_required">A resolution note is required</string>
+    <string name="incident_reported">Issue reported</string>
+    <string name="more_incidents">Incidents</string>
+    <string name="more_profile">Profile</string>
+
+    <string name="signup_title">Create an account</string>
+    <string name="signup_subtitle">Choose your role to get started</string>
+    <string name="signup_have_account">Already have an account? Sign in</string>
+    <string name="login_no_account">New here? Create an account</string>
+    <string name="signup_role">I am a</string>
+    <string name="role_manager">Fleet manager</string>
+    <string name="role_driver">Driver</string>
+    <string name="signup_name">Full name</string>
+    <string name="signup_confirm_password">Confirm password</string>
+    <string name="signup_submit">Create account</string>
+    <string name="error_passwords_differ">Passwords do not match</string>
+    <string name="error_name_required">Enter your name</string>
+    <string name="error_phone_required">Enter your phone number</string>
+    <string name="signup_driver_note">Drivers need a licence so trips can be assigned to them.</string>
 </resources>

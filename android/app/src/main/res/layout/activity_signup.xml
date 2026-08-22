@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signupRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.auth.SignupActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="28dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:text="@string/signup_title"
+            android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="2dp" android:text="@string/signup_subtitle"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:text="@string/signup_role"
+            android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+        <RadioGroup
+            android:id="@+id/roleGroup"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/roleManager"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/role_manager" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/roleDriver"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:checked="true"
+                android:text="@string/role_driver" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:hint="@string/signup_name" app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/nameInput"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:autofillHints="name" android:inputType="textCapWords|textPersonName"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:hint="@string/login_email" app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/emailInput"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:autofillHints="emailAddress" android:inputType="textEmailAddress"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:hint="@string/login_password"
+            app:endIconMode="password_toggle" app:errorEnabled="true"
+            app:helperText="@string/error_password_short">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/passwordInput"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="textPassword" android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:hint="@string/signup_confirm_password"
+            app:endIconMode="password_toggle" app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/confirmInput"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="textPassword" android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/driverFields"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" android:text="@string/signup_driver_note"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:hint="@string/driver_phone" app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/phoneInput"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:autofillHints="phone" android:inputType="phone" android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/licenceLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:hint="@string/driver_licence_number"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/licenceInput"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters" android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/expiryLayout" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:hint="@string/driver_licence_expiry"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/expiryInput"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:focusable="false" android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signupButton"
+                android:layout_width="match_parent" android:layout_height="52dp"
+                android:text="@string/signup_submit" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/signupProgress"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center" android:indeterminate="true"
+                android:visibility="gone" app:indicatorSize="26dp" app:trackThickness="3dp" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/goToLoginButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:text="@string/signup_have_account" />
+    </LinearLayout>
+</ScrollView>

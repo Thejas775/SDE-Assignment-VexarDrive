@@ -4,28 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp">
+    android:layout_margin="5dp"
+    app:cardCornerRadius="18dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="14dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="18dp">
 
         <TextView
             android:id="@+id/statValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:textAppearance="@style/TextAppearance.Fleet.StatValue"
+            android:textColor="?attr/colorPrimary"
             tools:text="18" />
 
         <TextView
             android:id="@+id/statLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.Fleet.StatLabel"
             tools:text="Available" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

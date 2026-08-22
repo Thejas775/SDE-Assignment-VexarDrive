@@ -11,7 +11,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.thejas.fleetmanagementtask.core.ApiResult
 import com.thejas.fleetmanagementtask.databinding.FragmentMoreBinding
 import com.thejas.fleetmanagementtask.di.ServiceLocator
+import androidx.navigation.fragment.findNavController
+import com.thejas.fleetmanagementtask.R
 import com.thejas.fleetmanagementtask.ui.auth.LoginActivity
+import com.thejas.fleetmanagementtask.ui.auth.ROLE_FLEET_MANAGER
 import kotlinx.coroutines.launch
 
 class MoreFragment : Fragment() {
@@ -32,6 +35,16 @@ class MoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.profileRole.text = ServiceLocator.tokenStore.role.orEmpty()
         binding.signOutButton.setOnClickListener { signOut() }
+        binding.incidentsButton.setText(
+            if (ServiceLocator.tokenStore.role == ROLE_FLEET_MANAGER) {
+                R.string.more_incidents
+            } else {
+                R.string.incidents_mine
+            }
+        )
+        binding.incidentsButton.setOnClickListener {
+            findNavController().navigate(R.id.incidentListFragment)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             when (val result = ServiceLocator.authRepository.me()) {

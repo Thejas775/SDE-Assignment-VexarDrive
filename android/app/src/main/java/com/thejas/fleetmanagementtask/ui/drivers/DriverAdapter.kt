@@ -10,6 +10,7 @@ import com.thejas.fleetmanagementtask.R
 import com.thejas.fleetmanagementtask.core.FleetEnums
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverDto
 import com.thejas.fleetmanagementtask.databinding.ItemDriverBinding
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class DriverAdapter(
     private val onClick: (DriverDto) -> Unit,
@@ -28,7 +29,7 @@ class DriverAdapter(
             licenceText.text = root.context.getString(R.string.driver_licence, driver.licenseNumber)
             vehicleText.text = driver.assignedVehicle?.label
                 ?: root.context.getString(R.string.driver_unassigned)
-            statusChip.text = FleetEnums.label(driver.status)
+            statusChip.applyStatus(driver.status)
             warningIcon.visibility = if (driver.needsAttention) View.VISIBLE else View.GONE
             root.setOnClickListener { onClick(driver) }
         }

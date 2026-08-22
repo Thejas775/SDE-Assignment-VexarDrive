@@ -12,6 +12,10 @@ object FleetEnums {
         "SCHEDULED", "STARTED", "IN_PROGRESS", "COMPLETED", "CANCELLED",
     )
 
+    val incidentSeverities = listOf("LOW", "MEDIUM", "HIGH", "CRITICAL")
+
+    val incidentStatuses = listOf("OPEN", "IN_PROGRESS", "RESOLVED")
+
     val driverStatuses = listOf("ACTIVE", "SUSPENDED", "INACTIVE")
 
     val fuelTypes = listOf(
