@@ -69,13 +69,21 @@ exception at all.
 ## Running the tests
 
 ```bash
+# simulator
 xcodebuild test \
   -project "Fleet Management Test.xcodeproj" \
   -scheme "Fleet Management Test" \
   -destination 'platform=iOS Simulator,name=iPhone 16'
+
+# or a connected device
+xcodebuild test \
+  -project "Fleet Management Test.xcodeproj" \
+  -scheme "Fleet Management Test" \
+  -destination 'id=<device-udid>' -allowProvisioningUpdates
 ```
 
-70 tests. Every one stubs the network with `URLProtocol`; none opens a socket.
+70 tests, all passing. Every one stubs the network with `URLProtocol`; none opens
+a socket.
 
 ## Layout
 
@@ -135,10 +143,25 @@ reach Trip Details from.
   supports them and `Endpoint` is ready, but only `search` and `status` are
   surfaced in the UI.
 
-## Known gaps
+## Verification
 
-The unit tests **compile** but have not been executed here: running them needs
-an iOS Simulator, which could not be used on the development machine. The same
-assertions were run to completion as macOS command-line harnesses while the code
-was written, so the logic is exercised — but `xcodebuild test` has not been run
-against this bundle. Screenshots are pending for the same reason.
+The suite has been run on a physical device (iPhone, iOS 27): **70 tests,
+0 failures**.
+
+The API contract was also exercised against a live backend, and the app's own
+`Codable` models were used to decode the captured responses. Confirmed against
+the running server rather than assumed:
+
+- refresh tokens really do rotate — replaying the previous one returns
+  `401 "Refresh token is no longer valid"`, which is what makes serialising
+  refreshes necessary rather than merely tidy
+- decimals arrive as strings (`"346.00"` survives a round trip unchanged)
+- `recorded_at` has no fractional seconds while `received_at` does, in the same
+  object
+- a non-running trip carries ten null fields and still decodes
+- `/trips/{id}/route` is a plain array, empty for a trip that never started
+- every live error shape maps correctly, including a 422 carrying `input` and
+  `ctx` fields beyond those documented, and the 403s
+  (`"This trip is not assigned to you"`)
+
+Screenshots of the three screens are still to be captured.
