@@ -112,6 +112,28 @@ final class DecodingTests: XCTestCase {
         XCTAssertTrue(text.contains("\"refresh_token\""))
     }
 
+    /// /auth/register answers with a naive timestamp while every other endpoint
+    /// qualifies it with Z. Decoding it used to throw and break signup.
+    func testNaiveTimestampFromRegisterDecodes() throws {
+        let body = Data("""
+        {"id":"3d165791-8683-40aa-8330-5a4cd96eede0","email":"rahul@fleet.in",
+        "full_name":"Rahul Sharma","phone_number":"+919876543210","role":"DRIVER",
+        "is_active":true,"created_at":"2026-08-22T22:25:49.364830"}
+        """.utf8)
+        let user = try decoder.decode(User.self, from: body)
+        XCTAssertEqual(user.role, .driver)
+        XCTAssertEqual(user.phoneNumber, "+919876543210")
+    }
+
+    func testEveryTimestampShapeTheAPIUses() {
+        XCTAssertNotNil(APIDate.parse("2026-08-22T17:55:17.478250Z"))
+        XCTAssertNotNil(APIDate.parse("2026-08-22T17:25:17Z"))
+        XCTAssertNotNil(APIDate.parse("2026-08-22T22:25:49.364830"))
+        XCTAssertNotNil(APIDate.parse("2026-08-22T22:25:49"))
+        XCTAssertNotNil(APIDate.parse("2026-08-22T17:55:17.478250+05:30"))
+        XCTAssertNotNil(APIDate.parse("2029-09-05"))
+    }
+
     func testGarbageDateIsRejectedRatherThanDefaulted() {
         XCTAssertNil(APIDate.parse("not-a-date"))
     }
