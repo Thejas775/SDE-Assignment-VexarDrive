@@ -141,7 +141,8 @@ actor APIClient {
         // losing the new one here would sign the user out on the next refresh.
         let renewed = StoredSession(
             accessToken: tokens.accessToken,
-            refreshToken: tokens.refreshToken
+            refreshToken: tokens.refreshToken,
+            user: tokens.user
         )
         try? tokenStore.write(renewed)
         return renewed

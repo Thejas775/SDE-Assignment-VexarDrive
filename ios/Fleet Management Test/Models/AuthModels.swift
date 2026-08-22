@@ -38,7 +38,7 @@ struct MessageResponse: Decodable, Sendable {
     let message: String
 }
 
-struct User: Decodable, Sendable, Identifiable, Hashable {
+struct User: Codable, Sendable, Identifiable, Hashable {
     let id: String
     let email: String
     let fullName: String

@@ -20,11 +20,15 @@ protocol TokenStoring: Sendable {
     func clear()
 }
 
-/// The two tokens, persisted together so they can never drift apart - the
-/// refresh rotation replaces both at once.
+/// Everything needed to resume a session, persisted as one item so the pieces
+/// can never drift apart - the refresh rotation replaces all of it at once.
+///
+/// The signed-in user rides along so a relaunch can go straight to the vehicle
+/// list instead of blocking on a round trip just to learn who is signed in.
 struct StoredSession: Codable, Sendable, Equatable {
     let accessToken: String
     let refreshToken: String
+    let user: User
 }
 
 struct KeychainStore: TokenStoring {
