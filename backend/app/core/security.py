@@ -14,7 +14,7 @@ RESET = "reset"
 
 
 def hash_password(password: str) -> str:
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(settings.BCRYPT_ROUNDS)).decode()
 
 
 def verify_password(password: str, hashed: str) -> bool:
