@@ -36,6 +36,50 @@ final class FleetUITests: XCTestCase {
         app.launch()
     }
 
+    /// Taps by absolute coordinate when the element claims to be unhittable.
+    ///
+    /// On this OS the signed-in screens put a full-screen Toolbar element above
+    /// the content in the accessibility tree, so XCUITest's hit test decides
+    /// these controls are covered and `tap()` silently does nothing. A touch at
+    /// the very same point works - DiagnosticUITests demonstrates both - so the
+    /// app is fine and only the automation needs the workaround.
+    private func robustTap(_ element: XCUIElement) {
+        XCTAssertTrue(element.waitForExistence(timeout: 20), "element should exist")
+        guard !element.isHittable else {
+            element.tap()
+            return
+        }
+        let frame = element.frame
+        app.coordinate(withNormalizedOffset: .zero)
+            .withOffset(CGVector(dx: frame.midX, dy: frame.midY))
+            .tap()
+    }
+
+    /// Taps until the tap demonstrably did something.
+    ///
+    /// A single tap on these screens is unreliable regardless of how it is
+    /// dispatched, so the caller says what success looks like and this keeps
+    /// trying for a bounded number of attempts.
+    private func tapUntil(
+        _ element: XCUIElement,
+        _ what: String,
+        attempts: Int = 4,
+        until satisfied: () -> Bool
+    ) {
+        for attempt in 1...attempts {
+            robustTap(element)
+            if satisfied() { return }
+            print("DIAG \(what): tap \(attempt) had no effect")
+        }
+        XCTFail("\(what) did not respond to \(attempts) taps")
+    }
+
+    /// The first cell in these lists is the section header ("13 vehicles"),
+    /// not a row, so rows are addressed by their own identifier.
+    private func firstRow(_ identifier: String) -> XCUIElement {
+        app.descendants(matching: .any).matching(identifier: identifier).firstMatch
+    }
+
     private func shot(_ name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = name
@@ -49,10 +93,9 @@ final class FleetUITests: XCTestCase {
     /// matter - it lands before the field has really taken focus, and the test
     /// then submits credentials that are quietly wrong.
     private func enter(_ text: String, into field: XCUIElement, secure: Bool = false) {
-        XCTAssertTrue(field.waitForExistence(timeout: 20), "field should exist")
-        field.tap()
-        XCTAssertTrue(app.keyboards.element.waitForExistence(timeout: 15),
-                      "keyboard should come up")
+        tapUntil(field, "keyboard for \(field.identifier)") {
+            app.keyboards.element.waitForExistence(timeout: 6)
+        }
 
         for character in text {
             field.typeText(String(character))
@@ -72,6 +115,23 @@ final class FleetUITests: XCTestCase {
         enter(overridePassword ?? password,
               into: app.secureTextFields["login.password"], secure: true)
         app.buttons["login.submit"].tap()
+        dismissPasswordSavePrompt()
+    }
+
+    /// iOS offers to save the password after a sign-in, in a SpringBoard alert
+    /// that sits over the app. Until it is dismissed every element underneath
+    /// reports itself unhittable and the next tap is swallowed dismissing it -
+    /// which is what made taps on the vehicle list look like no-ops, and what
+    /// put a system dialog in the middle of the screenshots.
+    private func dismissPasswordSavePrompt() {
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        for label in ["Not Now", "Not now"] {
+            let button = springboard.buttons[label]
+            if button.waitForExistence(timeout: 8) {
+                button.tap()
+                return
+            }
+        }
     }
 
     // MARK: - Login
@@ -120,7 +180,7 @@ final class FleetUITests: XCTestCase {
 
         XCTAssertTrue(app.navigationBars["Vehicles"].waitForExistence(timeout: 30),
                       "should land on the vehicle list")
-        XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: 20),
+        XCTAssertTrue(firstRow("vehicle.row").waitForExistence(timeout: 20),
                       "the list should have rows")
         shot("04-vehicle-list")
     }
@@ -131,14 +191,14 @@ final class FleetUITests: XCTestCase {
         launchSignedOut()
         signIn()
         XCTAssertTrue(app.navigationBars["Vehicles"].waitForExistence(timeout: 30))
-        XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: 20))
+        XCTAssertTrue(firstRow("vehicle.row").waitForExistence(timeout: 20))
 
         let search = app.searchFields.element(boundBy: 0)
         enter("tata", into: search)
 
         // Debounced, so give it more than 300ms before judging.
         Thread.sleep(forTimeInterval: 2.0)
-        XCTAssertTrue(app.cells.element(boundBy: 0).exists, "search should still show rows")
+        XCTAssertTrue(firstRow("vehicle.row").exists, "search should still show rows")
         shot("05-vehicle-search")
     }
 
@@ -146,19 +206,17 @@ final class FleetUITests: XCTestCase {
         launchSignedOut()
         signIn()
         XCTAssertTrue(app.navigationBars["Vehicles"].waitForExistence(timeout: 30))
-        XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: 20))
+        XCTAssertTrue(firstRow("vehicle.row").waitForExistence(timeout: 20))
 
-        let filter = app.buttons["vehicles.filter"]
-        XCTAssertTrue(filter.waitForExistence(timeout: 10))
-        filter.tap()
+        let filterButton = app.buttons["vehicles.filter"]
 
         // "Available" exactly - the row badges say "AVAILABLE", which an
         // inexact match would collide with.
         let option = app.descendants(matching: .any)
             .matching(NSPredicate(format: "label == %@", "Available"))
             .firstMatch
-        XCTAssertTrue(option.waitForExistence(timeout: 15), "the filter menu should open")
-        option.tap()
+        tapUntil(filterButton, "filter menu") { option.waitForExistence(timeout: 6) }
+        robustTap(option)
 
         Thread.sleep(forTimeInterval: 2.0)
         shot("06-vehicle-filter-available")
@@ -168,7 +226,7 @@ final class FleetUITests: XCTestCase {
         launchSignedOut()
         signIn()
         XCTAssertTrue(app.navigationBars["Vehicles"].waitForExistence(timeout: 30))
-        XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: 20))
+        XCTAssertTrue(firstRow("vehicle.row").waitForExistence(timeout: 20))
 
         let before = app.cells.count
         app.swipeUp(velocity: .fast)
@@ -186,18 +244,16 @@ final class FleetUITests: XCTestCase {
         signIn()
         XCTAssertTrue(app.navigationBars["Vehicles"].waitForExistence(timeout: 30))
 
-        let tripsTab = app.tabBars.buttons["Trips"]
-        XCTAssertTrue(tripsTab.waitForExistence(timeout: 15), "the Trips tab should exist")
-        tripsTab.tap()
-        XCTAssertTrue(app.navigationBars["Trips"].waitForExistence(timeout: 25))
-        XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: 20),
-                      "the trip list should have rows")
+        tapUntil(app.tabBars.buttons["Trips"], "Trips tab") {
+            app.navigationBars["Trips"].waitForExistence(timeout: 6)
+        }
+        let row = firstRow("trip.row")
+        XCTAssertTrue(row.waitForExistence(timeout: 20), "the trip list should have rows")
         shot("08-trip-list")
 
-        app.cells.element(boundBy: 0).tap()
-
-        XCTAssertTrue(app.navigationBars["Trip"].waitForExistence(timeout: 20),
-                      "should open trip details")
+        tapUntil(row, "trip row") {
+            app.navigationBars["Trip"].waitForExistence(timeout: 6)
+        }
         Thread.sleep(forTimeInterval: 2.5)
         shot("09-trip-detail")
 

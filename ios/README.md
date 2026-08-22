@@ -145,8 +145,15 @@ reach Trip Details from.
 
 ## Verification
 
-The suite has been run on a physical device (iPhone, iOS 27): **70 tests,
-0 failures**.
+Run on a physical device (iPhone, iOS 27):
+
+- **86 unit tests, 0 failures** - network stubbed with `URLProtocol`
+- **9 UI tests, 0 failures** - XCUITest driving the real app against the live
+  backend: sign in, wrong password, search, status filter, infinite scroll,
+  trip details, and a terminate-and-relaunch proving the session persists
+
+`Screenshots/` is produced by that UI run, so the images are of the real app on
+real hardware showing real fleet data rather than mock-ups.
 
 The API contract was also exercised against a live backend, and the app's own
 `Codable` models were used to decode the captured responses. Confirmed against
@@ -164,4 +171,11 @@ the running server rather than assumed:
   `ctx` fields beyond those documented, and the 403s
   (`"This trip is not assigned to you"`)
 
-Screenshots of the three screens are still to be captured.
+Two things worth knowing if you run the UI tests:
+
+- iOS offers to save the password after a sign-in, in a SpringBoard alert that
+  covers the app. Until it is dismissed every element beneath it reports itself
+  unhittable and the next tap is swallowed dismissing it - which is why the
+  tests dismiss it explicitly rather than tapping blind.
+- `typeText` drops the last character on a device often enough to matter, so
+  text is entered a character at a time and verified.
