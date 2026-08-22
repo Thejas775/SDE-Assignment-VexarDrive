@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/driverHomeFragment" android:icon="@drawable/ic_trips" android:title="@string/nav_my_trip" />
+    <item android:id="@+id/driverTripsFragment" android:icon="@drawable/ic_dashboard" android:title="@string/nav_my_trips" />
+    <item android:id="@+id/moreFragment" android:icon="@drawable/ic_more" android:title="@string/nav_more" />
+</menu>

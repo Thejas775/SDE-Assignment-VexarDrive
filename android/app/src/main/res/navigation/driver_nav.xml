@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/driver_nav"
+    app:startDestination="@id/driverHomeFragment">
+
+    <fragment
+        android:id="@+id/driverHomeFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.driver.DriverHomeFragment"
+        android:label="@string/nav_my_trip" />
+
+    <fragment
+        android:id="@+id/driverTripsFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.driver.DriverTripsFragment"
+        android:label="@string/nav_my_trips" />
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.more.MoreFragment"
+        android:label="@string/nav_more" />
+</navigation>

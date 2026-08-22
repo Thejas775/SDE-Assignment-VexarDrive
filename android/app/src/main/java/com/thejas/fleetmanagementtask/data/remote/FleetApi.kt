@@ -11,7 +11,10 @@ import com.thejas.fleetmanagementtask.data.remote.dto.DriverUpdateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.LocationPointDto
 import com.thejas.fleetmanagementtask.data.remote.dto.TripCancelRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.TripCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.TripCompleteRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.TripDto
+import com.thejas.fleetmanagementtask.data.remote.dto.TripStartRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.TripStatusRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.PageDto
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
@@ -153,4 +156,35 @@ interface FleetApi {
         @Path("id") id: String,
         @Query("limit") limit: Int = 1000,
     ): Response<List<LocationPointDto>>
+
+    // ------------------------------------------------------------- driver --
+
+    @GET("vehicles/my-vehicle")
+    suspend fun myVehicle(): Response<VehicleDto>
+
+    @GET("trips/my")
+    suspend fun myTrips(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("status") status: String? = null,
+        @Query("active_only") activeOnly: Boolean? = null,
+    ): Response<PageDto<TripDto>>
+
+    @POST("trips/{id}/start")
+    suspend fun startTrip(
+        @Path("id") id: String,
+        @Body body: TripStartRequest,
+    ): Response<TripDto>
+
+    @POST("trips/{id}/status")
+    suspend fun updateTripStatus(
+        @Path("id") id: String,
+        @Body body: TripStatusRequest,
+    ): Response<TripDto>
+
+    @POST("trips/{id}/complete")
+    suspend fun completeTrip(
+        @Path("id") id: String,
+        @Body body: TripCompleteRequest,
+    ): Response<TripDto>
 }
