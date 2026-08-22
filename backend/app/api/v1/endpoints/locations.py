@@ -6,7 +6,7 @@ from app.api.deps import CurrentUser, DbSession, FleetManager
 from app.core.exceptions import CustomException
 from app.core.logging import get_logger
 from app.core.ws_manager import tracking_manager
-from app.db.session import SessionLocal
+from app.db.session import session_factory
 from app.models.enums import UserRole
 from app.schemas.location import (
     LocationBatch,
@@ -59,7 +59,7 @@ async def tracking_socket(websocket: WebSocket, token: str = Query(...)) -> None
     The token arrives as a query parameter because the browser WebSocket API
     cannot set an Authorization header.
     """
-    async with SessionLocal() as db:
+    async with session_factory()() as db:
         try:
             user = await AuthService(db).user_from_access_token(token)
         except CustomException:

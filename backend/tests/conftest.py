@@ -60,8 +60,11 @@ async def db(engine):
 
 
 @pytest_asyncio.fixture
-async def client(engine, db):
+async def client(engine, db, monkeypatch):
     factory = async_sessionmaker(engine, expire_on_commit=False)
+    # middleware and WebSocket handlers sit outside the DI graph
+    monkeypatch.setattr("app.db.session.session_factory", lambda: factory)
+    monkeypatch.setattr("app.core.idempotency.session_factory", lambda: factory)
 
     async def override_get_db():
         async with factory() as session:

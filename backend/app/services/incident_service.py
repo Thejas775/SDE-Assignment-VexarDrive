@@ -52,7 +52,23 @@ class IncidentService:
             raise NotFoundError("Incident not found")
         return incident
 
-    async def report(self, payload: IncidentCreate, user: User) -> IncidentResponse:
+    async def report(
+        self,
+        payload: IncidentCreate,
+        user: User,
+        client_reference_id: str | None = None,
+    ) -> IncidentResponse:
+        if client_reference_id:
+            # The app resent a queued report; hand back the one already stored.
+            existing = await self.db.scalar(
+                select(Incident.id).where(
+                    Incident.reported_by_id == user.id,
+                    Incident.client_reference_id == client_reference_id,
+                )
+            )
+            if existing is not None:
+                return await self._response(existing)
+
         vehicle = await self.db.get(Vehicle, payload.vehicle_id)
         if vehicle is None:
             raise NotFoundError("Vehicle not found")
@@ -75,6 +91,7 @@ class IncidentService:
             title=payload.title,
             description=payload.description,
             severity=payload.severity,
+            client_reference_id=client_reference_id,
         )
         self.db.add(incident)
 

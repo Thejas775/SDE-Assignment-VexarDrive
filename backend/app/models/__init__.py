@@ -1,6 +1,7 @@
 from app.db.base import Base
 from app.models.driver import Driver
 from app.models.fuel import FuelLog
+from app.models.idempotency import IdempotencyKey
 from app.models.incident import Incident
 from app.models.location import Location
 from app.models.maintenance import MaintenanceRecord
@@ -15,6 +16,7 @@ __all__ = [
     "Base",
     "Driver",
     "FuelLog",
+    "IdempotencyKey",
     "Incident",
     "Location",
     "MaintenanceRecord",

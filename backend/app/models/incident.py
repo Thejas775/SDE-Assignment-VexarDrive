@@ -1,4 +1,6 @@
-from sqlalchemy import Column, DateTime, Enum, ForeignKey, Index, String, Text, Uuid, func
+from sqlalchemy import (
+    Column, DateTime, Enum, ForeignKey, Index, String, Text, UniqueConstraint, Uuid, func,
+)
 from sqlalchemy.orm import relationship
 
 from app.db.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
@@ -8,6 +10,9 @@ from app.models.enums import IncidentSeverity, IncidentStatus
 class Incident(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     __tablename__ = "incidents"
     __table_args__ = (
+        UniqueConstraint(
+            "reported_by_id", "client_reference_id", name="reporter_client_reference"
+        ),
         Index("ix_incidents_vehicle_status", "vehicle_id", "status"),
         Index("ix_incidents_status_severity", "status", "severity"),
     )
@@ -27,6 +32,7 @@ class Incident(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     reported_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     resolved_at = Column(DateTime(timezone=True), nullable=True)
     resolution_notes = Column(Text, nullable=True)
+    client_reference_id = Column(String(64), nullable=True)
 
     vehicle = relationship("Vehicle", back_populates="incidents", lazy="joined")
     trip = relationship("Trip", back_populates="incidents", lazy="raise_on_sql")

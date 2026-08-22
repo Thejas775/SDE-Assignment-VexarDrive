@@ -1,9 +1,10 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, Query, Response, status
 
 from app.api.deps import CurrentUser, DbSession, FleetManager
 from app.core.config import settings
+from app.core.qr import render
 from app.models.enums import FuelType, VehicleStatus, VehicleType
 from app.schemas.common import Page, PageParams
 from app.schemas.vehicle import VehicleCreate, VehicleResponse, VehicleUpdate
@@ -46,6 +47,33 @@ async def list_vehicles(
 @router.get("/my-vehicle", response_model=VehicleResponse)
 async def my_vehicle(db: DbSession, user: CurrentUser) -> VehicleResponse:
     return await VehicleService(db).current_for_driver(user)
+
+
+@router.get("/lookup", response_model=VehicleResponse)
+async def lookup_vehicle(
+    db: DbSession,
+    user: CurrentUser,
+    code: str = Query(description="scanned QR payload, or a bare vehicle id"),
+) -> VehicleResponse:
+    return await VehicleService(db).lookup_by_code(code, user)
+
+
+@router.get(
+    "/{vehicle_id}/qr",
+    responses={200: {"content": {"image/png": {}, "image/svg+xml": {}}}},
+    response_class=Response,
+)
+async def vehicle_qr(
+    vehicle_id: UUID,
+    db: DbSession,
+    _: FleetManager,
+    image_format: str = Query(default="png", pattern="^(png|svg)$", alias="format"),
+    box_size: int = Query(default=10, ge=2, le=40),
+) -> Response:
+    """QR sticker for the vehicle. Scanning it deep-links into the mobile app."""
+    payload = await VehicleService(db).qr_payload(vehicle_id)
+    body, media_type = render(payload, image_format, box_size)
+    return Response(content=body, media_type=media_type)
 
 
 @router.get("/{vehicle_id}", response_model=VehicleResponse)

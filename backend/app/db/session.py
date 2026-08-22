@@ -23,6 +23,12 @@ SessionLocal = async_sessionmaker(
 )
 
 
+def session_factory() -> async_sessionmaker[AsyncSession]:
+    """Indirection so components outside the DI graph (middleware, WebSocket
+    handlers) can be pointed at a different database in tests."""
+    return SessionLocal
+
+
 async def get_db() -> AsyncIterator[AsyncSession]:
     async with SessionLocal() as session:
         try:

@@ -5,6 +5,7 @@ from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, ForbiddenError, NotFoundError, ValidationError
+from app.core.qr import parse_vehicle_code, vehicle_payload
 from app.core.logging import get_logger
 from app.models.enums import FuelType, TripStatus, UserRole, VehicleStatus, VehicleType
 from app.models.trip import Trip
@@ -156,6 +157,17 @@ class VehicleService:
             .limit(params.page_size)
         )
         return Page.build([VehicleResponse.model_validate(v) for v in rows], total or 0, params)
+
+    async def qr_payload(self, vehicle_id: UUID) -> str:
+        vehicle = await self.get_or_404(vehicle_id)
+        return vehicle_payload(vehicle.id)
+
+    async def lookup_by_code(self, code: str, user: User) -> VehicleResponse:
+        try:
+            vehicle_id = parse_vehicle_code(code)
+        except ValueError:
+            raise ValidationError("Not a recognised vehicle code")
+        return await self.get_for_user(vehicle_id, user)
 
     async def get_for_user(self, vehicle_id: UUID, user: User) -> VehicleResponse:
         vehicle = await self.get_or_404(vehicle_id)

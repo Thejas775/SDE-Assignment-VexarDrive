@@ -20,6 +20,7 @@ structlog = "^25.5.0"
 bcrypt = "^4.2.1"
 pyjwt = "^2.10.1"
 python-multipart = "^0.0.20"
+qrcode = { extras = ["pil"], version = "^8.0" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"

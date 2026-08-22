@@ -11,6 +11,7 @@ from app.api.v1.endpoints import (
     locations,
     maintenance,
     notifications,
+    sync,
     trips,
     vehicles,
 )
@@ -28,3 +29,4 @@ api_router.include_router(incidents.router)
 api_router.include_router(notifications.router)
 api_router.include_router(fuel.router)
 api_router.include_router(analytics.router)
+api_router.include_router(sync.router)

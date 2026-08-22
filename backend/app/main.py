@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.core.exceptions import CustomException
+from app.core.idempotency import IdempotencyMiddleware
 from app.core.logging import configure_logging, get_logger
 from app.core.middleware import RequestIdMiddleware
 from app.db.migrations import apply_migrations
@@ -37,6 +38,7 @@ app = FastAPI(
     openapi_url=None if settings.is_production else "/openapi.json",
 )
 
+app.add_middleware(IdempotencyMiddleware)
 app.add_middleware(RequestIdMiddleware)
 app.add_middleware(
     CORSMiddleware,
