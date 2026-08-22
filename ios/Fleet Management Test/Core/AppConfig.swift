@@ -15,7 +15,7 @@ enum AppConfig {
     /// The Simulator shares the host's network stack, so `localhost` resolves
     /// to the Mac. Plain HTTP is allowed only in the Debug configuration - see
     /// the ATS exception in Config/Info.plist.
-    static let apiBaseURL = URL(string: "http://localhost:8000/api/v1/")!
+    static let apiBaseURL = URL(string: "http://192.168.1.7:8000/api/v1/")!
 
     /// How long to wait on a single request before calling it offline.
     static let requestTimeout: TimeInterval = 20
