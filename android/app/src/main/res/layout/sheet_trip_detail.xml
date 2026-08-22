@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center_vertical" android:orientation="horizontal">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:id="@+id/tripNumber" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textAppearance="?attr/textAppearanceLabelLarge"
+                    tools:text="TRP1007" />
+                <TextView android:id="@+id/tripRoute" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                    tools:text="Bangalore → Chennai" />
+            </LinearLayout>
+            <com.google.android.material.chip.Chip android:id="@+id/tripStatus"
+                style="@style/Widget.Material3.Chip.Assist" android:layout_width="wrap_content"
+                android:layout_height="32dp" android:clickable="false" tools:text="Completed" />
+        </LinearLayout>
+
+        <TextView android:id="@+id/tripAssignment" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            tools:text="KA-01-AB-1234 · Tata Ace · Rahul Sharma" />
+
+        <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:stretchColumns="1">
+            <TableRow>
+                <TextView android:text="@string/trip_planned" android:textAppearance="?attr/textAppearanceBodySmall" />
+                <TextView android:id="@+id/plannedValue" android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="23 Aug, 13:30 → 23 Aug, 23:30" />
+            </TableRow>
+            <TableRow android:paddingTop="6dp">
+                <TextView android:text="@string/trip_actual" android:textAppearance="?attr/textAppearanceBodySmall" />
+                <TextView android:id="@+id/actualValue" android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="23 Aug, 13:55 → 23 Aug, 21:10" />
+            </TableRow>
+            <TableRow android:paddingTop="6dp">
+                <TextView android:text="@string/trip_odometer" android:textAppearance="?attr/textAppearanceBodySmall" />
+                <TextView android:id="@+id/odometerValue" android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="48250 → 48596" />
+            </TableRow>
+            <TableRow android:paddingTop="6dp">
+                <TextView android:text="@string/trip_distance" android:textAppearance="?attr/textAppearanceBodySmall" />
+                <TextView android:id="@+id/distanceValue" android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="346.00 km" />
+            </TableRow>
+            <TableRow android:paddingTop="6dp">
+                <TextView android:text="@string/trip_duration" android:textAppearance="?attr/textAppearanceBodySmall" />
+                <TextView android:id="@+id/durationValue" android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="435 min" />
+            </TableRow>
+        </TableLayout>
+
+        <TextView android:id="@+id/routeSummary" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            tools:text="4 GPS points recorded" />
+
+        <TextView android:id="@+id/notesText" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBodySmall" android:visibility="gone"
+            tools:text="customer cancelled" tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton android:id="@+id/cancelTripButton"
+            style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:text="@string/trip_cancel" />
+    </LinearLayout>
+</ScrollView>

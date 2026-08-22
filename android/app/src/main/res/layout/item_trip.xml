@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp" android:clickable="true" android:focusable="true"
+    app:cardCornerRadius="14dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="14dp">
+
+        <TextView android:id="@+id/tripNumber" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textAppearance="?attr/textAppearanceLabelLarge"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+            tools:text="TRP1007" />
+
+        <TextView android:id="@+id/tripRoute" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            app:layout_constraintEnd_toStartOf="@id/tripStatus" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tripNumber"
+            tools:text="Bangalore → Chennai" />
+
+        <TextView android:id="@+id/tripMeta" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_marginTop="2dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tripRoute"
+            tools:text="KA-01-AB-1234 · Rahul Sharma" />
+
+        <TextView android:id="@+id/tripSchedule" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tripMeta"
+            tools:text="23 Aug 2026, 13:30 · 346.00 km" />
+
+        <com.google.android.material.chip.Chip android:id="@+id/tripStatus"
+            style="@style/Widget.Material3.Chip.Assist" android:layout_width="wrap_content"
+            android:layout_height="32dp" android:clickable="false"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            tools:text="In progress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

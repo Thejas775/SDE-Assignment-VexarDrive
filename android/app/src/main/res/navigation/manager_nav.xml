@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/tripsFragment"
-        android:name="com.thejas.fleetmanagementtask.ui.placeholder.TripsFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.trips.TripListFragment"
         android:label="@string/nav_trips" />
 
     <fragment

@@ -24,4 +24,3 @@ abstract class PlaceholderFragment(@StringRes private val titleRes: Int) : Fragm
     }
 }
 
-class TripsFragment : PlaceholderFragment(R.string.nav_trips)

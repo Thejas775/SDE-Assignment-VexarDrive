@@ -8,6 +8,10 @@ object FleetEnums {
     val vehicleTypes = listOf(
         "TRUCK", "VAN", "CAR", "PICKUP", "BUS", "TWO_WHEELER", "TRAILER",
     )
+    val tripStatuses = listOf(
+        "SCHEDULED", "STARTED", "IN_PROGRESS", "COMPLETED", "CANCELLED",
+    )
+
     val driverStatuses = listOf("ACTIVE", "SUSPENDED", "INACTIVE")
 
     val fuelTypes = listOf(

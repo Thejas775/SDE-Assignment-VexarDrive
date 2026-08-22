@@ -106,4 +106,26 @@
     <string name="error_email_taken">That email already has an account</string>
 
     <string name="error_password_short">At least 8 characters</string>
+
+    <string name="trips_empty">No trips match those filters</string>
+    <string name="trips_add">New trip</string>
+    <string name="trips_count">%1$d trips</string>
+    <string name="trip_new">Create a trip</string>
+    <string name="trip_driver">Driver</string>
+    <string name="trip_vehicle">Vehicle</string>
+    <string name="trip_source">From</string>
+    <string name="trip_destination">To</string>
+    <string name="trip_scheduled_start">Scheduled start</string>
+    <string name="trip_scheduled_end">Scheduled end</string>
+    <string name="trip_notes">Notes</string>
+    <string name="trip_no_vehicle">This driver has no vehicle assigned. Assign one first.</string>
+    <string name="trip_planned">Planned</string>
+    <string name="trip_actual">Actual</string>
+    <string name="trip_odometer">Odometer</string>
+    <string name="trip_distance">Distance</string>
+    <string name="trip_duration">Duration</string>
+    <string name="trip_route_points">%1$d GPS points recorded</string>
+    <string name="trip_route_none">No GPS points recorded yet</string>
+    <string name="trip_cancel">Cancel trip</string>
+    <string name="trip_cancel_reason">Reason</string>
 </resources>

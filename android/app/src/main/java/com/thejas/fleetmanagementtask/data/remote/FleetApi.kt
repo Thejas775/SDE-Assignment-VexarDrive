@@ -8,6 +8,10 @@ import com.thejas.fleetmanagementtask.data.remote.dto.DriverCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverPerformanceDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverUpdateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.LocationPointDto
+import com.thejas.fleetmanagementtask.data.remote.dto.TripCancelRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.TripCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.TripDto
 import com.thejas.fleetmanagementtask.data.remote.dto.PageDto
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
@@ -119,4 +123,34 @@ interface FleetApi {
 
     @POST("assignments/{id}/cancel")
     suspend fun cancelAssignment(@Path("id") id: String): Response<AssignmentDto>
+
+    // -------------------------------------------------------------- trips --
+
+    @GET("trips")
+    suspend fun trips(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("status") status: String? = null,
+        @Query("vehicle_id") vehicleId: String? = null,
+        @Query("driver_id") driverId: String? = null,
+        @Query("active_only") activeOnly: Boolean? = null,
+    ): Response<PageDto<TripDto>>
+
+    @GET("trips/{id}")
+    suspend fun trip(@Path("id") id: String): Response<TripDto>
+
+    @POST("trips")
+    suspend fun createTrip(@Body body: TripCreateRequest): Response<TripDto>
+
+    @POST("trips/{id}/cancel")
+    suspend fun cancelTrip(
+        @Path("id") id: String,
+        @Body body: TripCancelRequest,
+    ): Response<TripDto>
+
+    @GET("trips/{id}/route")
+    suspend fun tripRoute(
+        @Path("id") id: String,
+        @Query("limit") limit: Int = 1000,
+    ): Response<List<LocationPointDto>>
 }
