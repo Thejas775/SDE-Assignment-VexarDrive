@@ -11,6 +11,7 @@ from app.core.logging import get_logger
 from app.models.driver import Driver
 from app.models.enums import (
     AssignmentStatus,
+    NotificationType,
     DriverStatus,
     TripStatus,
     UserRole,
@@ -25,6 +26,7 @@ from app.schemas.assignment import AssignmentDriver
 from app.schemas.common import Page, PageParams
 from app.schemas.driver import AssignedVehicle
 from app.schemas.trip import TripComplete, TripCreate, TripResponse, TripStart
+from app.services.notification_service import NotificationService
 
 logger = get_logger(__name__)
 
@@ -70,6 +72,16 @@ class TripService:
 
         trip = Trip(trip_number=await self._next_trip_number(), **payload.model_dump())
         self.db.add(trip)
+        await self.db.flush()
+        await NotificationService(self.db).notify(
+            driver.user_id,
+            NotificationType.TRIP_ASSIGNED,
+            f"New trip {trip.trip_number}",
+            f"{payload.source} to {payload.destination}, "
+            f"departing {payload.scheduled_start:%d %b %Y %H:%M}.",
+            entity_type="trip",
+            entity_id=trip.id,
+        )
         await self.db.commit()
         logger.info("trip.created", trip_id=str(trip.id), trip_number=trip.trip_number)
         return self._build(trip, vehicle, driver)
@@ -156,6 +168,13 @@ class TripService:
             trip.notes = payload.notes
         trip.vehicle.current_mileage = payload.end_odometer
         trip.vehicle.status = VehicleStatus.AVAILABLE
+        await NotificationService(self.db).notify_managers(
+            NotificationType.TRIP_COMPLETED,
+            f"Trip {trip.trip_number} completed",
+            f"{trip.source} to {trip.destination}, {trip.distance_km} km.",
+            entity_type="trip",
+            entity_id=trip.id,
+        )
         await self.db.commit()
         logger.info("trip.completed", trip_number=trip.trip_number,
                     distance_km=str(trip.distance_km))
