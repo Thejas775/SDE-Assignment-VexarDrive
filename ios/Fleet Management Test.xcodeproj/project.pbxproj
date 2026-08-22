@@ -14,6 +14,13 @@
 			remoteGlobalIDString = 23232A56303A33B6006F98CF;
 			remoteInfo = "Fleet Management Test";
 		};
+		23232C08303A33B6006F98CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23232A4F303A33B6006F98CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23232A56303A33B6006F98CF;
+			remoteInfo = "Fleet Management Test";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXTargetDependency section */
@@ -22,11 +29,17 @@
 			target = 23232A56303A33B6006F98CF /* Fleet Management Test */;
 			targetProxy = 23232B08303A33B6006F98CF /* PBXContainerItemProxy */;
 		};
+		23232C07303A33B6006F98CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23232A56303A33B6006F98CF /* Fleet Management Test */;
+			targetProxy = 23232C08303A33B6006F98CF /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXFileReference section */
 		23232A57303A33B6006F98CF /* Fleet Management Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fleet Management Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23232B02303A33B6006F98CF /* Fleet Management TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fleet Management TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		23232C02303A33B6006F98CF /* Fleet Management TestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fleet Management TestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,6 +51,11 @@
 		23232B03303A33B6006F98CF /* Fleet Management TestTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Fleet Management TestTests";
+			sourceTree = "<group>";
+		};
+		23232C03303A33B6006F98CF /* Fleet Management TestUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Fleet Management TestUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -55,6 +73,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23232C05303A33B6006F98CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -63,6 +88,7 @@
 			children = (
 				23232A59303A33B6006F98CF /* Fleet Management Test */,
 				23232B03303A33B6006F98CF /* Fleet Management TestTests */,
+				23232C03303A33B6006F98CF /* Fleet Management TestUITests */,
 				23232A58303A33B6006F98CF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +98,7 @@
 			children = (
 				23232A57303A33B6006F98CF /* Fleet Management Test.app */,
 				23232B02303A33B6006F98CF /* Fleet Management TestTests.xctest */,
+				23232C02303A33B6006F98CF /* Fleet Management TestUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,6 +145,27 @@
 			productReference = 23232B02303A33B6006F98CF /* Fleet Management TestTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		23232C01303A33B6006F98CF /* Fleet Management TestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23232C09303A33B6006F98CF /* Build configuration list for PBXNativeTarget "Fleet Management TestUITests" */;
+			buildPhases = (
+				23232C04303A33B6006F98CF /* Sources */,
+				23232C05303A33B6006F98CF /* Frameworks */,
+				23232C06303A33B6006F98CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23232C07303A33B6006F98CF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				23232C03303A33B6006F98CF /* Fleet Management TestUITests */,
+			);
+			name = "Fleet Management TestUITests";
+			productName = "Fleet Management TestUITests";
+			productReference = 23232C02303A33B6006F98CF /* Fleet Management TestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -132,6 +180,10 @@
 						CreatedOnToolsVersion = 27.0;
 					};
 					23232B01303A33B6006F98CF = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = 23232A56303A33B6006F98CF;
+					};
+					23232C01303A33B6006F98CF = {
 						CreatedOnToolsVersion = 27.0;
 						TestTargetID = 23232A56303A33B6006F98CF;
 					};
@@ -153,6 +205,7 @@
 			targets = (
 				23232A56303A33B6006F98CF /* Fleet Management Test */,
 				23232B01303A33B6006F98CF /* Fleet Management TestTests */,
+				23232C01303A33B6006F98CF /* Fleet Management TestUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -170,6 +223,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23232C06303A33B6006F98CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -179,6 +239,13 @@
 			);
 		};
 		23232B04303A33B6006F98CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23232C04303A33B6006F98CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -437,6 +504,50 @@
 			};
 			name = Release;
 		};
+		23232C0A303A33B6006F98CF /* Debug configuration for PBXNativeTarget "Fleet Management TestUITests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KUSYGU54JX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "thejas.Fleet-Management-TestUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Fleet Management Test";
+			};
+			name = Debug;
+		};
+		23232C0B303A33B6006F98CF /* Release configuration for PBXNativeTarget "Fleet Management TestUITests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KUSYGU54JX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "thejas.Fleet-Management-TestUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Fleet Management Test";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -461,6 +572,15 @@
 			buildConfigurations = (
 				23232B0A303A33B6006F98CF /* Debug configuration for PBXNativeTarget "Fleet Management TestTests" */,
 				23232B0B303A33B6006F98CF /* Release configuration for PBXNativeTarget "Fleet Management TestTests" */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23232C09303A33B6006F98CF /* Build configuration list for PBXNativeTarget "Fleet Management TestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23232C0A303A33B6006F98CF /* Debug configuration for PBXNativeTarget "Fleet Management TestUITests" */,
+				23232C0B303A33B6006F98CF /* Release configuration for PBXNativeTarget "Fleet Management TestUITests" */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

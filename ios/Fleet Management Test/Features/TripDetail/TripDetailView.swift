@@ -70,6 +70,7 @@ struct TripDetailView: View {
             routeSection
         }
         .listStyle(.insetGrouped)
+        .accessibilityIdentifier("trip.detail")
     }
 
     // MARK: - Sections

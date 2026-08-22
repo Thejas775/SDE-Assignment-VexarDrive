@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Fleet Management Test.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "23232C01303A33B6006F98CF"
+               BuildableName = "Fleet Management TestUITests.xctest"
+               BlueprintName = "Fleet Management TestUITests"
+               ReferencedContainer = "container:Fleet Management Test.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

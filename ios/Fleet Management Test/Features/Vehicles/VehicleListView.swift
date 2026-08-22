@@ -72,6 +72,7 @@ struct VehicleListView: View {
             Section {
                 ForEach(viewModel.vehicles) { vehicle in
                     VehicleRow(vehicle: vehicle)
+                        .accessibilityIdentifier("vehicle.row")
                         .onAppear { viewModel.loadMoreIfNeeded(currentItem: vehicle) }
                 }
             } header: {
@@ -87,6 +88,7 @@ struct VehicleListView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .accessibilityIdentifier("vehicles.list")
     }
 
     private var statusMenu: some View {
@@ -103,6 +105,7 @@ struct VehicleListView: View {
                 systemImage: "line.3.horizontal.decrease.circle"
             )
         }
+        .accessibilityIdentifier("vehicles.filter")
     }
 
     private var signOutButton: some View {

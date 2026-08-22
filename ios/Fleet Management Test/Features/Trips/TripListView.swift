@@ -62,6 +62,7 @@ struct TripListView: View {
                     } label: {
                         TripRow(trip: trip)
                     }
+                    .accessibilityIdentifier("trip.row")
                     .onAppear { viewModel.loadMoreIfNeeded(currentItem: trip) }
                 }
             } header: {
@@ -77,6 +78,7 @@ struct TripListView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .accessibilityIdentifier("trips.list")
     }
 
     private var statusMenu: some View {
