@@ -4,6 +4,7 @@ from app.models.incident import Incident
 from app.models.location import Location
 from app.models.maintenance import MaintenanceRecord
 from app.models.notification import Notification
+from app.models.refresh_token import RefreshToken
 from app.models.trip import Trip
 from app.models.user import User
 from app.models.vehicle import Vehicle
@@ -16,6 +17,7 @@ __all__ = [
     "Location",
     "MaintenanceRecord",
     "Notification",
+    "RefreshToken",
     "Trip",
     "User",
     "Vehicle",

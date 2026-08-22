@@ -23,6 +23,10 @@ class User(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         "Notification", back_populates="user",
         cascade="all, delete-orphan", lazy="raise_on_sql",
     )
+    refresh_tokens = relationship(
+        "RefreshToken", back_populates="user",
+        cascade="all, delete-orphan", lazy="raise_on_sql",
+    )
     reported_incidents = relationship(
         "Incident", foreign_keys="Incident.reported_by_id",
         back_populates="reported_by", lazy="raise_on_sql",

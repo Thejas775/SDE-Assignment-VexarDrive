@@ -31,6 +31,8 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
     PASSWORD_MIN_LENGTH: int = 8
+    PASSWORD_MAX_LENGTH: int = 72
+    PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 30
 
     # --- database ---
     POSTGRES_HOST: str = "localhost"
