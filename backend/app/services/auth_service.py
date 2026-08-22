@@ -1,11 +1,11 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.core.exceptions import ConflictError, UnauthorizedError
+from app.core.exceptions import ConflictError, UnauthorizedError, ValidationError
 from app.core.logging import get_logger
 from app.core.security import (
     ACCESS,
@@ -19,10 +19,12 @@ from app.core.security import (
     hash_password,
     verify_password,
 )
+from app.models.driver import Driver
+from app.models.enums import DriverStatus, UserRole
 from app.models.refresh_token import RefreshToken
 from app.models.user import User
 from app.schemas.auth import TokenResponse
-from app.schemas.user import UserCreate, UserResponse
+from app.schemas.user import SignupRequest, UserCreate, UserResponse
 
 logger = get_logger(__name__)
 
@@ -59,9 +61,22 @@ class AuthService:
             user=UserResponse.model_validate(user),
         )
 
-    async def register(self, payload: UserCreate) -> UserResponse:
+    async def register(self, payload: UserCreate | SignupRequest) -> UserResponse:
         if await self._get_by_email(payload.email):
             raise ConflictError("An account with this email already exists")
+
+        license_number = getattr(payload, "license_number", None)
+        license_expiry = getattr(payload, "license_expiry", None)
+
+        if payload.role is UserRole.DRIVER and license_number:
+            if license_expiry and license_expiry < date.today():
+                raise ValidationError("Licence has already expired")
+            taken = await self.db.scalar(
+                select(Driver.id).where(Driver.license_number == license_number)
+            )
+            if taken is not None:
+                raise ConflictError(f"Licence {license_number} is already registered")
+
         user = User(
             email=payload.email,
             hashed_password=hash_password(payload.password),
@@ -69,9 +84,23 @@ class AuthService:
             phone_number=payload.phone_number,
             role=payload.role,
         )
+        # Both rows in one transaction: a duplicate licence must not leave an
+        # account behind that can never be used.
+        creates_profile = payload.role is UserRole.DRIVER and bool(license_number)
+        if creates_profile:
+            user.driver = Driver(
+                license_number=license_number,
+                license_expiry=license_expiry,
+                status=DriverStatus.ACTIVE,
+            )
         self.db.add(user)
         await self.db.commit()
-        logger.info("auth.registered", user_id=str(user.id), role=user.role)
+        logger.info(
+            "auth.registered",
+            user_id=str(user.id),
+            role=user.role,
+            with_driver_profile=creates_profile,
+        )
         return UserResponse.model_validate(user)
 
     async def login(self, email: str, password: str) -> TokenResponse:

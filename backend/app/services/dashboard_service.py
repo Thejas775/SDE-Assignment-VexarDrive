@@ -27,7 +27,10 @@ class DashboardService:
         self.db = db
 
     async def summary(self) -> DashboardResponse:
-        today = date.today()
+        # Timestamps are stored as timestamptz, so the day boundary has to be
+        # UTC too. date.today() is the server's local date and silently reports
+        # zero distance whenever the two dates differ.
+        today = datetime.now(timezone.utc).date()
         day_start = datetime.combine(today, time.min, tzinfo=timezone.utc)
         day_end = day_start + timedelta(days=1)
         doc_cutoff = today + timedelta(days=settings.DOCUMENT_EXPIRY_WARNING_DAYS)

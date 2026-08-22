@@ -6,7 +6,12 @@ API = "/api/v1/auth"
 async def test_register_returns_created_user(client):
     r = await client.post(
         f"{API}/register",
-        json={"email": "New@Test.in", "password": "pass-word-1", "full_name": "New User"},
+        json={
+            "email": "New@Test.in",
+            "password": "pass-word-1",
+            "full_name": "New User",
+            "role": "FLEET_MANAGER",
+        },
     )
     assert r.status_code == 201
     assert r.json()["email"] == "new@test.in"
@@ -20,7 +25,12 @@ async def test_password_is_hashed_not_stored_plainly(client, db):
 
     await client.post(
         f"{API}/register",
-        json={"email": "hash@test.in", "password": "pass-word-1", "full_name": "Hash User"},
+        json={
+            "email": "hash@test.in",
+            "password": "pass-word-1",
+            "full_name": "Hash User",
+            "role": "FLEET_MANAGER",
+        },
     )
     stored = await db.scalar(select(User.hashed_password).where(User.email == "hash@test.in"))
     assert stored != "pass-word-1"
@@ -28,7 +38,12 @@ async def test_password_is_hashed_not_stored_plainly(client, db):
 
 
 async def test_duplicate_email_rejected(client):
-    body = {"email": "dupe@test.in", "password": "pass-word-1", "full_name": "First"}
+    body = {
+        "email": "dupe@test.in",
+        "password": "pass-word-1",
+        "full_name": "First",
+        "role": "FLEET_MANAGER",
+    }
     assert (await client.post(f"{API}/register", json=body)).status_code == 201
     r = await client.post(f"{API}/register", json=body)
     assert r.status_code == 409
