@@ -89,6 +89,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/passwordLayout" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/goToSignupButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/login_no_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/loginProgress"
             android:layout_width="wrap_content"

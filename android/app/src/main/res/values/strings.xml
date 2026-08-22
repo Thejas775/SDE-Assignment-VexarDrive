@@ -172,4 +172,19 @@
     <string name="incident_reported">Issue reported</string>
     <string name="more_incidents">Incidents</string>
     <string name="more_profile">Profile</string>
+
+    <string name="signup_title">Create an account</string>
+    <string name="signup_subtitle">Choose your role to get started</string>
+    <string name="signup_have_account">Already have an account? Sign in</string>
+    <string name="login_no_account">New here? Create an account</string>
+    <string name="signup_role">I am a</string>
+    <string name="role_manager">Fleet manager</string>
+    <string name="role_driver">Driver</string>
+    <string name="signup_name">Full name</string>
+    <string name="signup_confirm_password">Confirm password</string>
+    <string name="signup_submit">Create account</string>
+    <string name="error_passwords_differ">Passwords do not match</string>
+    <string name="error_name_required">Enter your name</string>
+    <string name="error_phone_required">Enter your phone number</string>
+    <string name="signup_driver_note">Drivers need a licence so trips can be assigned to them.</string>
 </resources>

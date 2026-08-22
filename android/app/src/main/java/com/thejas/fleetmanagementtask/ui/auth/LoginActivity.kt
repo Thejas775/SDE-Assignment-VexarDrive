@@ -51,6 +51,9 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.loginButton.setOnClickListener { submit() }
         binding.passwordInput.setOnEditorActionListener { _, _, _ -> submit(); true }
+        binding.goToSignupButton.setOnClickListener {
+            startActivity(SignupActivity.intent(this))
+        }
     }
 
     private fun submit() = viewModel.submit(
