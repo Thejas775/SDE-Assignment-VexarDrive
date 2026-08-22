@@ -20,10 +20,8 @@ import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleUpdateRequest
 import com.thejas.fleetmanagementtask.databinding.SheetVehicleFormBinding
 import com.thejas.fleetmanagementtask.di.ServiceLocator
+import com.thejas.fleetmanagementtask.ui.common.formatUtcDate
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
 
 class VehicleFormSheet : BottomSheetDialogFragment() {
 
@@ -76,12 +74,7 @@ class VehicleFormSheet : BottomSheetDialogFragment() {
         val picker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(titleRes))
             .build()
-        picker.addOnPositiveButtonClickListener { millis ->
-            // The picker returns UTC midnight; format in UTC or the date shifts.
-            val format = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-                .apply { timeZone = TimeZone.getTimeZone("UTC") }
-            onPicked(format.format(millis))
-        }
+        picker.addOnPositiveButtonClickListener { millis -> onPicked(formatUtcDate(millis)) }
         picker.show(childFragmentManager, "date")
     }
 

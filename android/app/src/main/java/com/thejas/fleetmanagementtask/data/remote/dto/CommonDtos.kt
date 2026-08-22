@@ -14,3 +14,14 @@ data class PageDto<T>(
 ) {
     val hasMore: Boolean get() = page < pages
 }
+
+/** Vehicle summary embedded in driver, assignment and trip payloads. */
+@Serializable
+data class VehicleSummaryDto(
+    val id: String,
+    @SerialName("registration_number") val registrationNumber: String,
+    val make: String,
+    val model: String,
+) {
+    val label: String get() = "$registrationNumber · $make $model"
+}

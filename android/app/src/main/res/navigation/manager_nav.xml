@@ -17,6 +17,11 @@
         android:label="@string/nav_vehicles" />
 
     <fragment
+        android:id="@+id/driversFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.drivers.DriverListFragment"
+        android:label="@string/nav_drivers" />
+
+    <fragment
         android:id="@+id/tripsFragment"
         android:name="com.thejas.fleetmanagementtask.ui.placeholder.TripsFragment"
         android:label="@string/nav_trips" />

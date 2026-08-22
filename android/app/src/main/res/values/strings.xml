@@ -67,4 +67,43 @@
     <string name="save">Save</string>
     <string name="error_required">Required</string>
     <string name="error_year_range">Enter a year between 1900 and 2100</string>
+
+    <string name="nav_drivers">Drivers</string>
+    <string name="drivers_search_hint">Search name, phone or licence</string>
+    <string name="drivers_empty">No drivers match those filters</string>
+    <string name="drivers_add">Add driver</string>
+    <string name="drivers_count">%1$d drivers</string>
+    <string name="driver_licence">Licence %1$s</string>
+    <string name="driver_licence_expiring">Licence expiring soon</string>
+    <string name="driver_unassigned">No vehicle assigned</string>
+    <string name="driver_email">Email</string>
+    <string name="driver_password">Password</string>
+    <string name="driver_name">Full name</string>
+    <string name="driver_phone">Phone number</string>
+    <string name="driver_licence_number">Licence number</string>
+    <string name="driver_licence_expiry">Licence expiry</string>
+    <string name="driver_edit">Edit</string>
+    <string name="driver_suspend">Suspend</string>
+    <string name="driver_activate">Activate</string>
+    <string name="driver_deactivate">Deactivate</string>
+    <string name="driver_assign_vehicle">Assign vehicle</string>
+    <string name="driver_performance">Performance</string>
+    <string name="driver_assignments">Assignments</string>
+    <string name="driver_no_assignments">No assignments yet</string>
+    <string name="perf_trips">Trips</string>
+    <string name="perf_completed">Completed</string>
+    <string name="perf_distance">Distance (km)</string>
+    <string name="perf_avg_duration">Avg duration (min)</string>
+    <string name="perf_incidents">Incidents reported</string>
+
+    <string name="assignment_title">Assign a vehicle</string>
+    <string name="assignment_vehicle">Vehicle</string>
+    <string name="assignment_start">Start date</string>
+    <string name="assignment_end">End date (optional)</string>
+    <string name="assignment_notes">Notes</string>
+    <string name="assignment_end_now">End assignment</string>
+    <string name="assignment_cancel">Cancel assignment</string>
+    <string name="error_email_taken">That email already has an account</string>
+
+    <string name="error_password_short">At least 8 characters</string>
 </resources>

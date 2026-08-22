@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center_vertical" android:orientation="horizontal">
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:id="@+id/nameText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall" tools:text="Rahul Sharma" />
+                <TextView android:id="@+id/contactText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    tools:text="rahul@fleet.in · +919876543210" />
+            </LinearLayout>
+
+            <com.google.android.material.chip.Chip android:id="@+id/statusChip"
+                style="@style/Widget.Material3.Chip.Assist" android:layout_width="wrap_content"
+                android:layout_height="32dp" android:clickable="false" tools:text="Active" />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <TextView android:id="@+id/licenceText" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                tools:text="Licence KA0120230001234 · expires 2029-03-14" />
+            <ImageView android:id="@+id/licenceWarning" android:layout_width="18dp"
+                android:layout_height="18dp" android:src="@drawable/ic_warning"
+                android:contentDescription="@string/driver_licence_expiring" android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="18dp" android:text="@string/driver_performance"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/performanceGrid"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:nestedScrollingEnabled="false"
+            tools:itemCount="5" tools:listitem="@layout/item_stat" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="18dp" android:text="@string/driver_assignments"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/assignmentList"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            tools:itemCount="2" tools:listitem="@layout/item_assignment" />
+
+        <TextView android:id="@+id/assignmentsEmpty" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="@string/driver_no_assignments"
+            android:textAppearance="?attr/textAppearanceBodyMedium" android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton android:id="@+id/assignButton"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:text="@string/driver_assign_vehicle" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton android:id="@+id/statusButton"
+                style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+                android:layout_weight="1" tools:text="Suspend" />
+
+            <com.google.android.material.button.MaterialButton android:id="@+id/editButton"
+                style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"
+                android:text="@string/driver_edit" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
