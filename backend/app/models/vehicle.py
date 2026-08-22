@@ -1,17 +1,8 @@
-from datetime import date
-from typing import TYPE_CHECKING
-
-from sqlalchemy import CheckConstraint, Date, Enum, Integer, SmallInteger, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import CheckConstraint, Column, Date, Enum, Integer, SmallInteger, String
+from sqlalchemy.orm import relationship
 
 from app.db.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
 from app.models.enums import FuelType, VehicleStatus, VehicleType
-
-if TYPE_CHECKING:
-    from app.models.incident import Incident
-    from app.models.maintenance import MaintenanceRecord
-    from app.models.trip import Trip
-    from app.models.vehicle_assignment import VehicleAssignment
 
 
 class Vehicle(Base, UUIDPrimaryKeyMixin, TimestampMixin):
@@ -21,37 +12,24 @@ class Vehicle(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         CheckConstraint("current_mileage >= 0", name="mileage_non_negative"),
     )
 
-    registration_number: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
-    vehicle_type: Mapped[VehicleType] = mapped_column(
-        Enum(VehicleType, name="vehicle_type"), nullable=False
+    registration_number = Column(String(20), unique=True, nullable=False)
+    vehicle_type = Column(Enum(VehicleType, name="vehicle_type"), nullable=False)
+    make = Column(String(50), nullable=False)
+    model = Column(String(50), nullable=False)
+    year = Column(SmallInteger, nullable=False)
+    fuel_type = Column(Enum(FuelType, name="fuel_type"), nullable=False)
+    current_mileage = Column(Integer, nullable=False, default=0, server_default="0")
+    status = Column(
+        Enum(VehicleStatus, name="vehicle_status"), nullable=False, index=True,
+        default=VehicleStatus.AVAILABLE, server_default=VehicleStatus.AVAILABLE.value,
     )
-    make: Mapped[str] = mapped_column(String(50), nullable=False)
-    model: Mapped[str] = mapped_column(String(50), nullable=False)
-    year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    fuel_type: Mapped[FuelType] = mapped_column(
-        Enum(FuelType, name="fuel_type"), nullable=False
-    )
-    current_mileage: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
-    status: Mapped[VehicleStatus] = mapped_column(
-        Enum(VehicleStatus, name="vehicle_status"),
-        nullable=False,
-        default=VehicleStatus.AVAILABLE,
-        server_default=VehicleStatus.AVAILABLE.value,
-        index=True,
-    )
-    insurance_expiry: Mapped[date] = mapped_column(Date, nullable=False)
-    registration_expiry: Mapped[date] = mapped_column(Date, nullable=False)
+    insurance_expiry = Column(Date, nullable=False)
+    registration_expiry = Column(Date, nullable=False)
 
-    assignments: Mapped[list["VehicleAssignment"]] = relationship(
-        back_populates="vehicle", lazy="raise_on_sql"
-    )
-    trips: Mapped[list["Trip"]] = relationship(back_populates="vehicle", lazy="raise_on_sql")
-    maintenance_records: Mapped[list["MaintenanceRecord"]] = relationship(
-        back_populates="vehicle", lazy="raise_on_sql"
-    )
-    incidents: Mapped[list["Incident"]] = relationship(
-        back_populates="vehicle", lazy="raise_on_sql"
-    )
+    assignments = relationship("VehicleAssignment", back_populates="vehicle", lazy="raise_on_sql")
+    trips = relationship("Trip", back_populates="vehicle", lazy="raise_on_sql")
+    maintenance_records = relationship("MaintenanceRecord", back_populates="vehicle", lazy="raise_on_sql")
+    incidents = relationship("Incident", back_populates="vehicle", lazy="raise_on_sql")
 
     def __repr__(self) -> str:
         return f"<Vehicle {self.registration_number} status={self.status}>"

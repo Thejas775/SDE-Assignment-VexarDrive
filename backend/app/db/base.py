@@ -1,8 +1,8 @@
-from datetime import datetime
-from uuid import UUID, uuid4
+import datetime
+import uuid
 
-from sqlalchemy import DateTime, MetaData, func
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Column, DateTime, MetaData, Uuid, func
+from sqlalchemy.orm import declarative_base
 
 NAMING_CONVENTION = {
     "ix": "ix_%(table_name)s_%(column_0_N_name)s",
@@ -12,22 +12,19 @@ NAMING_CONVENTION = {
     "pk": "pk_%(table_name)s",
 }
 
-
-class Base(DeclarativeBase):
-    metadata = MetaData(naming_convention=NAMING_CONVENTION)
+Base = declarative_base(metadata=MetaData(naming_convention=NAMING_CONVENTION))
 
 
 class UUIDPrimaryKeyMixin:
-    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    id = Column(Uuid, primary_key=True, default=uuid.uuid4)
 
 
 class TimestampMixin:
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now(), nullable=False
+    created_at = Column(
+        DateTime(timezone=True), nullable=False, server_default=func.now(),
+        default=datetime.datetime.now,
     )
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True),
-        server_default=func.now(),
-        onupdate=func.now(),
-        nullable=False,
+    updated_at = Column(
+        DateTime(timezone=True), nullable=False, server_default=func.now(),
+        default=datetime.datetime.now, onupdate=datetime.datetime.now,
     )

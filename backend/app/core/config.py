@@ -1,6 +1,6 @@
 from functools import lru_cache
 from typing import Literal
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import urlsplit, urlunsplit
 
 from pydantic import SecretStr, computed_field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     ENVIRONMENT: Literal["development", "staging", "production"] = "development"
     DEBUG: bool = False
     LOG_LEVEL: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
+    LOG_JSON: bool = True
+    RUN_MIGRATIONS_ON_STARTUP: bool = True
 
     # --- security ---
     SECRET_KEY: SecretStr = SecretStr(DEV_SECRET_KEY)
@@ -62,38 +64,23 @@ class Settings(BaseSettings):
 
     @computed_field  # type: ignore[prop-decorator]
     @property
-    def database_url_async(self) -> str:
-        return self._dsn("postgresql+asyncpg", drop_ssl_query=True)
-
-    @computed_field  # type: ignore[prop-decorator]
-    @property
-    def database_url_sync(self) -> str:
-        return self._dsn("postgresql+psycopg", drop_ssl_query=False)
-
-    @computed_field  # type: ignore[prop-decorator]
-    @property
-    def db_ssl_required(self) -> bool:
-        if not self.DATABASE_URL:
-            return False
-        query = dict(parse_qsl(urlsplit(self.DATABASE_URL).query))
-        return query.get("sslmode", "").lower() in {"require", "verify-ca", "verify-full"}
-
-    def _dsn(self, driver: str, *, drop_ssl_query: bool) -> str:
+    def database_url(self) -> str:
+        """psycopg 3 serves both the async app and the sync yoyo migrations."""
         if self.DATABASE_URL:
             parts = urlsplit(self.DATABASE_URL)
-            # asyncpg rejects libpq's sslmode/channel_binding params; TLS is
-            # re-applied as a connect arg in app/db/session.py
-            query = [
-                (k, v)
-                for k, v in parse_qsl(parts.query)
-                if not (drop_ssl_query and k in {"sslmode", "channel_binding"})
-            ]
-            return urlunsplit((driver, parts.netloc, parts.path, urlencode(query), parts.fragment))
+            return urlunsplit(
+                ("postgresql+psycopg", parts.netloc, parts.path, parts.query, parts.fragment)
+            )
         password = self.POSTGRES_PASSWORD.get_secret_value()
         return (
-            f"{driver}://{self.POSTGRES_USER}:{password}"
+            f"postgresql+psycopg://{self.POSTGRES_USER}:{password}"
             f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def yoyo_url(self) -> str:
+        return self.database_url
 
     @field_validator("API_V1_PREFIX")
     @classmethod

@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "fleet-management"
+version = "0.1.0"
+description = "Fleet Management Platform - backend monolith"
+authors = ["Thejas Elandassery <thejaselandassery@gmail.com>"]
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.15"
+fastapi = "^0.115.6"
+uvicorn = { extras = ["standard"], version = "^0.34.0" }
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.36" }
+psycopg = { extras = ["binary"], version = "^3.2.3" }
+greenlet = "^3.1.1"
+yoyo-migrations = "^9.0.0"
+pydantic = "^2.10.4"
+pydantic-settings = "^2.7.0"
+email-validator = "^2.2.0"
+structlog = "^25.5.0"
+bcrypt = "^4.2.1"
+pyjwt = "^2.10.1"
+python-multipart = "^0.0.20"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.0"
+httpx = "^0.28.1"
+aiosqlite = "^0.20.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
