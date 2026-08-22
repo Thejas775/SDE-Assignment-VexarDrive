@@ -13,7 +13,7 @@ from app.schemas.auth import (
     TokenResponse,
 )
 from app.schemas.common import MessageResponse
-from app.schemas.user import UserCreate, UserResponse
+from app.schemas.user import SignupRequest, UserCreate, UserResponse
 from app.services.auth_service import AuthService
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
@@ -21,7 +21,12 @@ logger = get_logger(__name__)
 
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def register(payload: UserCreate, db: DbSession) -> UserResponse:
+async def register(payload: SignupRequest, db: DbSession) -> UserResponse:
+    """Self-service signup.
+
+    Choosing DRIVER also creates the driver profile, so the account works the
+    moment it is created.
+    """
     return await AuthService(db).register(payload)
 
 
