@@ -15,11 +15,13 @@ final class AppEnvironment: ObservableObject {
     let client: APIClient
     let session: SessionController
     let vehicles: any VehicleRepositoryProtocol
+    let trips: any TripRepositoryProtocol
 
     init(tokenStore: any TokenStoring = KeychainStore(), urlSession: URLSession? = nil) {
         let client = APIClient(tokenStore: tokenStore, session: urlSession)
         self.client = client
         self.vehicles = VehicleRepository(client: client)
+        self.trips = TripRepository(client: client)
         self.session = SessionController(
             repository: AuthRepository(client: client, tokenStore: tokenStore),
             sessionExpired: client.sessionExpired
