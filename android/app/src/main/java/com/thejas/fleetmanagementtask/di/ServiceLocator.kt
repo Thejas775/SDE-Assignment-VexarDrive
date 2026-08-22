@@ -10,6 +10,7 @@ import com.thejas.fleetmanagementtask.data.repository.AssignmentRepository
 import com.thejas.fleetmanagementtask.data.repository.AuthRepository
 import com.thejas.fleetmanagementtask.data.repository.DashboardRepository
 import com.thejas.fleetmanagementtask.data.repository.DriverRepository
+import com.thejas.fleetmanagementtask.data.repository.IncidentRepository
 import com.thejas.fleetmanagementtask.data.repository.LocationRepository
 import com.thejas.fleetmanagementtask.data.repository.TripRepository
 import com.thejas.fleetmanagementtask.data.repository.VehicleRepository
@@ -50,6 +51,7 @@ object ServiceLocator {
     val assignmentRepository: AssignmentRepository by lazy { AssignmentRepository(fleetApi) }
     val tripRepository: TripRepository by lazy { TripRepository(fleetApi) }
     val locationRepository: LocationRepository by lazy { LocationRepository(fleetApi) }
+    val incidentRepository: IncidentRepository by lazy { IncidentRepository(fleetApi) }
 
     fun init(context: Context) {
         appContext = context.applicationContext

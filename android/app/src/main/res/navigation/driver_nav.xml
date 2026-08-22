@@ -15,6 +15,16 @@
         android:label="@string/nav_my_trips" />
 
     <fragment
+        android:id="@+id/incidentListFragment"
+        android:name="com.thejas.fleetmanagementtask.ui.incidents.IncidentListFragment"
+        android:label="@string/incidents_title">
+        <argument
+            android:name="mine_only"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
         android:id="@+id/moreFragment"
         android:name="com.thejas.fleetmanagementtask.ui.more.MoreFragment"
         android:label="@string/nav_more" />

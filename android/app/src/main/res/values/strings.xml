@@ -153,4 +153,23 @@
     <string name="tracking_active">Recording your route</string>
     <string name="tracking_sent">Sent %1$d points · %2$d queued</string>
     <string name="tracking_queued">Offline · %1$d points queued</string>
+
+    <string name="incidents_title">Incidents</string>
+    <string name="incidents_mine">My reports</string>
+    <string name="incidents_empty">No incidents match those filters</string>
+    <string name="incidents_count">%1$d incidents</string>
+    <string name="incident_report">Report an issue</string>
+    <string name="incident_title_label">What is wrong?</string>
+    <string name="incident_description">Describe the problem</string>
+    <string name="incident_severity">Severity</string>
+    <string name="incident_vehicle">Vehicle</string>
+    <string name="incident_reported_by">Reported by %1$s</string>
+    <string name="incident_assign_me">Assign to me</string>
+    <string name="incident_resolve">Resolve</string>
+    <string name="incident_reopen">Reopen</string>
+    <string name="incident_resolution">What was done?</string>
+    <string name="incident_resolution_required">A resolution note is required</string>
+    <string name="incident_reported">Issue reported</string>
+    <string name="more_incidents">Incidents</string>
+    <string name="more_profile">Profile</string>
 </resources>

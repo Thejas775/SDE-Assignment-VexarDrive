@@ -8,6 +8,10 @@ import com.thejas.fleetmanagementtask.data.remote.dto.DriverCreateRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverPerformanceDto
 import com.thejas.fleetmanagementtask.data.remote.dto.DriverUpdateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentAssignRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentCreateRequest
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentDto
+import com.thejas.fleetmanagementtask.data.remote.dto.IncidentStatusRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.LocationBatchRequest
 import com.thejas.fleetmanagementtask.data.remote.dto.LocationIngestResultDto
 import com.thejas.fleetmanagementtask.data.remote.dto.LocationPointDto
@@ -194,4 +198,40 @@ interface FleetApi {
     suspend fun postLocations(
         @Body body: LocationBatchRequest,
     ): Response<LocationIngestResultDto>
+
+    // ---------------------------------------------------------- incidents --
+
+    @GET("incidents")
+    suspend fun incidents(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+        @Query("status") status: String? = null,
+        @Query("severity") severity: String? = null,
+        @Query("vehicle_id") vehicleId: String? = null,
+        @Query("open_only") openOnly: Boolean? = null,
+    ): Response<PageDto<IncidentDto>>
+
+    @GET("incidents/my")
+    suspend fun myIncidents(
+        @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 20,
+    ): Response<PageDto<IncidentDto>>
+
+    @GET("incidents/{id}")
+    suspend fun incident(@Path("id") id: String): Response<IncidentDto>
+
+    @POST("incidents")
+    suspend fun reportIncident(@Body body: IncidentCreateRequest): Response<IncidentDto>
+
+    @POST("incidents/{id}/assign")
+    suspend fun assignIncident(
+        @Path("id") id: String,
+        @Body body: IncidentAssignRequest,
+    ): Response<IncidentDto>
+
+    @POST("incidents/{id}/status")
+    suspend fun setIncidentStatus(
+        @Path("id") id: String,
+        @Body body: IncidentStatusRequest,
+    ): Response<IncidentDto>
 }

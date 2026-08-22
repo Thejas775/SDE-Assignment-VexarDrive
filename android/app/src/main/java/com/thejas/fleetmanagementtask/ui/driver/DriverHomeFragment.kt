@@ -21,6 +21,7 @@ import com.thejas.fleetmanagementtask.core.longitudeString
 import com.thejas.fleetmanagementtask.databinding.DialogOdometerBinding
 import com.thejas.fleetmanagementtask.databinding.FragmentDriverHomeBinding
 import com.thejas.fleetmanagementtask.service.LocationTrackingService
+import com.thejas.fleetmanagementtask.ui.incidents.IncidentFormSheet
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
 import kotlinx.coroutines.launch
 
@@ -52,6 +53,12 @@ class DriverHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         location = LocationProvider(requireContext().applicationContext)
         binding.swipeRefresh.setOnRefreshListener { viewModel.refresh() }
+        childFragmentManager.setFragmentResultListener(
+            IncidentFormSheet.RESULT_KEY,
+            viewLifecycleOwner,
+        ) { _, _ ->
+            Snackbar.make(binding.root, R.string.incident_reported, Snackbar.LENGTH_SHORT).show()
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -74,6 +81,18 @@ class DriverHomeFragment : Fragment() {
             binding.vehicleRegistration.setText(R.string.driver_no_vehicle)
             binding.vehicleDetails.text = ""
             binding.vehicleMileage.text = ""
+        }
+
+        // Reporting needs a vehicle to report against.
+        binding.reportIssueButton.visibility =
+            if (state.vehicle != null) View.VISIBLE else View.GONE
+        binding.reportIssueButton.setOnClickListener {
+            val vehicle = state.vehicle ?: return@setOnClickListener
+            IncidentFormSheet.newInstance(
+                vehicleId = vehicle.id,
+                vehicleLabel = "${vehicle.registrationNumber} · ${vehicle.make} ${vehicle.model}",
+                tripId = state.trip?.takeIf { it.isActive }?.id,
+            ).show(childFragmentManager, IncidentFormSheet.TAG)
         }
 
         binding.tripCard.visibility = if (state.hasTrip) View.VISIBLE else View.GONE
