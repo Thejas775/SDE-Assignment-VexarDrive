@@ -10,6 +10,7 @@ from app.core.logging import get_logger
 from app.core.security import hash_password
 from app.models.driver import Driver
 from app.models.enums import AssignmentStatus, DriverStatus, TripStatus, UserRole
+from app.models.incident import Incident
 from app.models.trip import Trip
 from app.models.user import User
 from app.models.vehicle import Vehicle
@@ -20,6 +21,7 @@ from app.schemas.driver import (
     AssignmentHistoryEntry,
     DriverCreate,
     DriverHistory,
+    DriverPerformance,
     DriverResponse,
     DriverUpdate,
 )
@@ -175,23 +177,51 @@ class DriverService:
             )
             for a, v in rows.all()
         ]
+        return DriverHistory(
+            assignments=assignments,
+            **(await self._performance(driver)).model_dump(),
+        )
+
+    async def performance(self, driver_id: UUID) -> DriverPerformance:
+        return await self._performance(await self.get_or_404(driver_id))
+
+    async def _performance(self, driver: Driver) -> DriverPerformance:
+        duration = func.extract("epoch", Trip.actual_end - Trip.actual_start) / 60
         stats = (
             await self.db.execute(
                 select(
                     func.count(Trip.id),
                     func.count(Trip.id).filter(Trip.status == TripStatus.COMPLETED),
+                    func.count(Trip.id).filter(Trip.status == TripStatus.CANCELLED),
                     func.coalesce(func.sum(Trip.distance_km), 0),
-                ).where(Trip.driver_id == driver_id)
+                    func.avg(duration).filter(Trip.actual_end.isnot(None)),
+                    func.avg(Trip.distance_km).filter(Trip.distance_km.isnot(None)),
+                ).where(Trip.driver_id == driver.id)
             )
         ).one()
-        return DriverHistory(
+        incidents = await self.db.scalar(
+            select(func.count())
+            .select_from(Incident)
+            .where(Incident.reported_by_id == driver.user_id)
+        )
+        return DriverPerformance(
             driver_id=driver.id,
             full_name=driver.user.full_name,
-            assignments=assignments,
             total_trips=stats[0],
             completed_trips=stats[1],
-            total_distance_km=float(stats[2]),
+            cancelled_trips=stats[2],
+            total_distance_km=float(stats[3]),
+            average_trip_duration_minutes=int(stats[4]) if stats[4] is not None else None,
+            average_distance_km=round(float(stats[5]), 2) if stats[5] is not None else None,
+            incidents_reported=incidents or 0,
         )
+
+    async def performance_leaderboard(self) -> list[DriverPerformance]:
+        drivers = list(
+            await self.db.scalars(select(Driver).options(selectinload(Driver.user)))
+        )
+        rows = [await self._performance(d) for d in drivers]
+        return sorted(rows, key=lambda r: r.total_distance_km, reverse=True)
 
     async def get_for_user(self, driver_id: UUID, user: User) -> DriverResponse:
         driver = await self.get_or_404(driver_id)

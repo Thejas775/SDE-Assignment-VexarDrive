@@ -1,5 +1,6 @@
 from app.db.base import Base
 from app.models.driver import Driver
+from app.models.fuel import FuelLog
 from app.models.incident import Incident
 from app.models.location import Location
 from app.models.maintenance import MaintenanceRecord
@@ -13,6 +14,7 @@ from app.models.vehicle_assignment import VehicleAssignment
 __all__ = [
     "Base",
     "Driver",
+    "FuelLog",
     "Incident",
     "Location",
     "MaintenanceRecord",

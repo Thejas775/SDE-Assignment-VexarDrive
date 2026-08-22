@@ -80,10 +80,17 @@ class AssignmentHistoryEntry(BaseModel):
     status: str
 
 
-class DriverHistory(BaseModel):
+class DriverPerformance(BaseModel):
     driver_id: UUID
     full_name: str
-    assignments: list[AssignmentHistoryEntry]
     total_trips: int
     completed_trips: int
+    cancelled_trips: int
     total_distance_km: float
+    average_trip_duration_minutes: int | None
+    average_distance_km: float | None
+    incidents_reported: int
+
+
+class DriverHistory(DriverPerformance):
+    assignments: list[AssignmentHistoryEntry]

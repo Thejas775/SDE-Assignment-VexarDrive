@@ -1,10 +1,12 @@
 from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
+    analytics,
     assignments,
     auth,
     dashboard,
     drivers,
+    fuel,
     incidents,
     locations,
     maintenance,
@@ -24,3 +26,5 @@ api_router.include_router(locations.router)
 api_router.include_router(maintenance.router)
 api_router.include_router(incidents.router)
 api_router.include_router(notifications.router)
+api_router.include_router(fuel.router)
+api_router.include_router(analytics.router)

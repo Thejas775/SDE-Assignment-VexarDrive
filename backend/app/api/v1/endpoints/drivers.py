@@ -7,7 +7,13 @@ from app.core.config import settings
 from app.models.enums import DriverStatus
 from app.schemas.common import Page
 from app.schemas.common import PageParams
-from app.schemas.driver import DriverCreate, DriverHistory, DriverResponse, DriverUpdate
+from app.schemas.driver import (
+    DriverCreate,
+    DriverHistory,
+    DriverPerformance,
+    DriverResponse,
+    DriverUpdate,
+)
 from app.services.driver_service import DriverService
 
 router = APIRouter(prefix="/drivers", tags=["Drivers"])
@@ -41,6 +47,12 @@ async def my_profile(db: DbSession, user: CurrentUser) -> DriverResponse:
     return await DriverService(db).me(user)
 
 
+@router.get("/performance", response_model=list[DriverPerformance])
+async def performance_leaderboard(db: DbSession, _: FleetManager) -> list[DriverPerformance]:
+    """Every driver ranked by distance covered."""
+    return await DriverService(db).performance_leaderboard()
+
+
 @router.get("/{driver_id}", response_model=DriverResponse)
 async def get_driver(driver_id: UUID, db: DbSession, user: CurrentUser) -> DriverResponse:
     return await DriverService(db).get_for_user(driver_id, user)
@@ -66,6 +78,13 @@ async def deactivate_driver(driver_id: UUID, db: DbSession, _: FleetManager) -> 
 @router.post("/{driver_id}/suspend", response_model=DriverResponse)
 async def suspend_driver(driver_id: UUID, db: DbSession, _: FleetManager) -> DriverResponse:
     return await DriverService(db).set_status(driver_id, DriverStatus.SUSPENDED)
+
+
+@router.get("/{driver_id}/performance", response_model=DriverPerformance)
+async def driver_performance(
+    driver_id: UUID, db: DbSession, _: FleetManager
+) -> DriverPerformance:
+    return await DriverService(db).performance(driver_id)
 
 
 @router.get("/{driver_id}/history", response_model=DriverHistory)

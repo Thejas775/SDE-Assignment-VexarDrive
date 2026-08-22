@@ -30,6 +30,7 @@ class Vehicle(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     trips = relationship("Trip", back_populates="vehicle", lazy="raise_on_sql")
     maintenance_records = relationship("MaintenanceRecord", back_populates="vehicle", lazy="raise_on_sql")
     incidents = relationship("Incident", back_populates="vehicle", lazy="raise_on_sql")
+    fuel_logs = relationship("FuelLog", back_populates="vehicle", lazy="raise_on_sql")
 
     def __repr__(self) -> str:
         return f"<Vehicle {self.registration_number} status={self.status}>"
