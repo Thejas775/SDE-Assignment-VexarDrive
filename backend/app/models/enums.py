@@ -1,0 +1,85 @@
+from enum import StrEnum
+
+
+class UserRole(StrEnum):
+    FLEET_MANAGER = "FLEET_MANAGER"
+    DRIVER = "DRIVER"
+
+
+class VehicleStatus(StrEnum):
+    AVAILABLE = "AVAILABLE"
+    ON_TRIP = "ON_TRIP"
+    IN_MAINTENANCE = "IN_MAINTENANCE"
+    INACTIVE = "INACTIVE"
+
+
+class VehicleType(StrEnum):
+    TRUCK = "TRUCK"
+    VAN = "VAN"
+    CAR = "CAR"
+    PICKUP = "PICKUP"
+    BUS = "BUS"
+    TWO_WHEELER = "TWO_WHEELER"
+    TRAILER = "TRAILER"
+
+
+class FuelType(StrEnum):
+    PETROL = "PETROL"
+    DIESEL = "DIESEL"
+    CNG = "CNG"
+    LPG = "LPG"
+    ELECTRIC = "ELECTRIC"
+    HYBRID = "HYBRID"
+
+
+class DriverStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+    SUSPENDED = "SUSPENDED"
+
+
+class AssignmentStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"
+
+
+class TripStatus(StrEnum):
+    SCHEDULED = "SCHEDULED"
+    STARTED = "STARTED"
+    IN_PROGRESS = "IN_PROGRESS"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"
+
+
+class MaintenanceType(StrEnum):
+    OIL_CHANGE = "OIL_CHANGE"
+    BRAKE_SERVICE = "BRAKE_SERVICE"
+    TYRE_REPLACEMENT = "TYRE_REPLACEMENT"
+    ENGINE_SERVICE = "ENGINE_SERVICE"
+    GENERAL_INSPECTION = "GENERAL_INSPECTION"
+    OTHER = "OTHER"
+
+
+class IncidentSeverity(StrEnum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
+class IncidentStatus(StrEnum):
+    OPEN = "OPEN"
+    IN_PROGRESS = "IN_PROGRESS"
+    RESOLVED = "RESOLVED"
+
+
+class NotificationType(StrEnum):
+    MAINTENANCE_DUE = "MAINTENANCE_DUE"
+    INSURANCE_EXPIRING = "INSURANCE_EXPIRING"
+    REGISTRATION_EXPIRING = "REGISTRATION_EXPIRING"
+    LICENSE_EXPIRING = "LICENSE_EXPIRING"
+    TRIP_ASSIGNED = "TRIP_ASSIGNED"
+    TRIP_COMPLETED = "TRIP_COMPLETED"
+    INCIDENT_REPORTED = "INCIDENT_REPORTED"
+    INCIDENT_RESOLVED = "INCIDENT_RESOLVED"
