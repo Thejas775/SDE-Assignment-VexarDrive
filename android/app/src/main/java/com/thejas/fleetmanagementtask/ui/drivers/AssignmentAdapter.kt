@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thejas.fleetmanagementtask.core.FleetEnums
 import com.thejas.fleetmanagementtask.data.remote.dto.AssignmentDto
 import com.thejas.fleetmanagementtask.databinding.ItemAssignmentBinding
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class AssignmentAdapter(
     private val onClick: (AssignmentDto) -> Unit,
@@ -24,7 +25,7 @@ class AssignmentAdapter(
         with(holder.binding) {
             assignmentVehicle.text = assignment.vehicle.label
             assignmentPeriod.text = assignment.period
-            assignmentStatus.text = FleetEnums.label(assignment.status)
+            assignmentStatus.applyStatus(assignment.status)
             root.setOnClickListener { onClick(assignment) }
         }
     }

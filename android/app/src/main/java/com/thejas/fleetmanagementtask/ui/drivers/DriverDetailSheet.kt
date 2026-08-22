@@ -22,6 +22,7 @@ import com.thejas.fleetmanagementtask.di.ServiceLocator
 import com.thejas.fleetmanagementtask.ui.dashboard.Stat
 import com.thejas.fleetmanagementtask.ui.dashboard.StatAdapter
 import kotlinx.coroutines.launch
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class DriverDetailSheet : BottomSheetDialogFragment() {
 
@@ -120,7 +121,7 @@ class DriverDetailSheet : BottomSheetDialogFragment() {
         binding.licenceText.text =
             "${getString(R.string.driver_licence, data.licenseNumber)} · expires ${data.licenseExpiry}"
         binding.licenceWarning.visibility = if (data.needsAttention) View.VISIBLE else View.GONE
-        binding.statusChip.text = FleetEnums.label(data.status)
+        binding.statusChip.applyStatus(data.status)
         binding.statusButton.setText(
             if (data.status == "ACTIVE") R.string.driver_suspend else R.string.driver_activate
         )

@@ -17,6 +17,7 @@ import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
 import com.thejas.fleetmanagementtask.databinding.SheetVehicleDetailBinding
 import com.thejas.fleetmanagementtask.di.ServiceLocator
 import kotlinx.coroutines.launch
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class VehicleDetailSheet : BottomSheetDialogFragment() {
 
@@ -73,7 +74,7 @@ class VehicleDetailSheet : BottomSheetDialogFragment() {
         vehicle = data
         binding.registrationText.text = data.registrationNumber
         binding.detailsText.text = "${data.make} ${data.model} · ${data.year}"
-        binding.statusChip.text = FleetEnums.label(data.status)
+        binding.statusChip.applyStatus(data.status)
         binding.typeValue.text = FleetEnums.label(data.vehicleType)
         binding.fuelValue.text = FleetEnums.label(data.fuelType)
         binding.mileageValue.text = "${data.currentMileage} km"

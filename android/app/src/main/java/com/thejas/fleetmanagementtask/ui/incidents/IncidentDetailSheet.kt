@@ -21,6 +21,7 @@ import com.thejas.fleetmanagementtask.di.ServiceLocator
 import com.thejas.fleetmanagementtask.ui.auth.ROLE_FLEET_MANAGER
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
 import kotlinx.coroutines.launch
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class IncidentDetailSheet : BottomSheetDialogFragment() {
 
@@ -56,7 +57,7 @@ class IncidentDetailSheet : BottomSheetDialogFragment() {
 
     private fun bind(incident: IncidentDto) {
         binding.incidentTitle.text = incident.title
-        binding.severityChip.text = FleetEnums.label(incident.severity)
+        binding.severityChip.applyStatus(incident.severity)
         binding.vehicleText.text = incident.vehicle.label
         binding.metaText.text = listOfNotNull(
             FleetEnums.label(incident.status),

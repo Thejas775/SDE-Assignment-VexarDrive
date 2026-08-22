@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thejas.fleetmanagementtask.core.FleetEnums
 import com.thejas.fleetmanagementtask.data.remote.dto.VehicleDto
 import com.thejas.fleetmanagementtask.databinding.ItemVehicleBinding
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class VehicleAdapter(
     private val onClick: (VehicleDto) -> Unit,
@@ -26,7 +27,7 @@ class VehicleAdapter(
             registrationText.text = vehicle.title
             detailsText.text = vehicle.subtitle
             mileageText.text = "${vehicle.currentMileage} km · ${FleetEnums.label(vehicle.fuelType)}"
-            statusChip.text = FleetEnums.label(vehicle.status)
+            statusChip.applyStatus(vehicle.status)
             warningIcon.visibility = if (vehicle.needsAttention) View.VISIBLE else View.GONE
             root.setOnClickListener { onClick(vehicle) }
         }

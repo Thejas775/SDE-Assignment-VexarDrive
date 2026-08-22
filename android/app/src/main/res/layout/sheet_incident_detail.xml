@@ -14,7 +14,7 @@
                 android:textAppearance="?attr/textAppearanceHeadlineSmall"
                 tools:text="Brake noise on descent" />
             <com.google.android.material.chip.Chip android:id="@+id/severityChip"
-                style="@style/Widget.Material3.Chip.Assist" android:layout_width="wrap_content"
+                style="@style/Widget.Fleet.Chip.Status" android:layout_width="wrap_content"
                 android:layout_height="32dp" android:clickable="false" tools:text="Critical" />
         </LinearLayout>
 

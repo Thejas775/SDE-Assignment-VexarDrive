@@ -19,8 +19,9 @@ android {
 
     buildTypes {
         debug {
-            // 10.0.2.2 is how the emulator reaches the host machine's localhost.
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8000/api/v1/\"")
+            // LAN address of the dev machine so a physical device on the same
+            // WiFi can reach it. 10.0.2.2 would only work on the emulator.
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.7:8000/api/v1/\"")
         }
         release {
             isMinifyEnabled = false
@@ -28,7 +29,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8000/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.7:8000/api/v1/\"")
         }
     }
 

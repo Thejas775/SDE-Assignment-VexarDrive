@@ -9,6 +9,7 @@ import com.thejas.fleetmanagementtask.core.FleetEnums
 import com.thejas.fleetmanagementtask.data.remote.dto.IncidentDto
 import com.thejas.fleetmanagementtask.databinding.ItemIncidentBinding
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class IncidentAdapter(
     private val onClick: (IncidentDto) -> Unit,
@@ -30,7 +31,7 @@ class IncidentAdapter(
                 incident.reportedBy.fullName,
                 formatInstant(incident.reportedAt),
             ).joinToString(" · ")
-            severityChip.text = FleetEnums.label(incident.severity)
+            severityChip.applyStatus(incident.severity)
             root.setOnClickListener { onClick(incident) }
         }
     }

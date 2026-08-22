@@ -24,6 +24,7 @@ import com.thejas.fleetmanagementtask.service.LocationTrackingService
 import com.thejas.fleetmanagementtask.ui.incidents.IncidentFormSheet
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
 import kotlinx.coroutines.launch
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class DriverHomeFragment : Fragment() {
 
@@ -104,7 +105,7 @@ class DriverHomeFragment : Fragment() {
             )
             binding.tripNumber.text = trip.tripNumber
             binding.tripRoute.text = trip.route
-            binding.tripStatus.text = FleetEnums.label(trip.status)
+            binding.tripStatus.applyStatus(trip.status)
             binding.tripSchedule.text =
                 "${formatInstant(trip.scheduledStart)} → ${formatInstant(trip.scheduledEnd)}"
             binding.tripProgress.visibility =

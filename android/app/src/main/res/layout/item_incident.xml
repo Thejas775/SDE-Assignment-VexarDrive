@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp" android:clickable="true" android:focusable="true"
-    app:cardCornerRadius="14dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+    android:layout_marginBottom="10dp" android:clickable="true" android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="14dp">
@@ -29,7 +28,7 @@
             tools:text="Open · Rahul Sharma · 23 Aug 2026, 13:30" />
 
         <com.google.android.material.chip.Chip android:id="@+id/severityChip"
-            style="@style/Widget.Material3.Chip.Assist" android:layout_width="wrap_content"
+            style="@style/Widget.Fleet.Chip.Status" android:layout_width="wrap_content"
             android:layout_height="32dp" android:clickable="false"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             tools:text="Critical" />

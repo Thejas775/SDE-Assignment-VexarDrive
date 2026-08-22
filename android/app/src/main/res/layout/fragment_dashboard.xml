@@ -16,13 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="20dp">
 
             <TextView
                 android:id="@+id/greetingText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:paddingHorizontal="6dp"
+                android:textAppearance="?attr/textAppearanceHeadlineMedium"
                 tools:text="Fleet overview" />
 
             <TextView
@@ -46,7 +48,8 @@
                 android:id="@+id/incidentsHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="26dp"
+                android:paddingHorizontal="6dp"
                 android:text="@string/dashboard_recent_incidents"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
@@ -55,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:paddingHorizontal="6dp"
                 android:nestedScrollingEnabled="false"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_recent_incident" />

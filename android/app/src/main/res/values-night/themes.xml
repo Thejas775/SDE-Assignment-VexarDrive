@@ -1,5 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.FleetManagementTask" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/fleet_primary_dark</item>
+        <item name="colorPrimary">@color/brand_80</item>
+        <item name="colorOnPrimary">#00391A</item>
+        <item name="colorPrimaryContainer">@color/brand_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/brand_on_container_dark</item>
+        <item name="colorSecondary">@color/accent_80</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="materialCardViewStyle">@style/Widget.Fleet.Card</item>
     </style>
 </resources>

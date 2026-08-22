@@ -18,6 +18,7 @@ import com.thejas.fleetmanagementtask.databinding.SheetTripDetailBinding
 import com.thejas.fleetmanagementtask.di.ServiceLocator
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
 import kotlinx.coroutines.launch
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class TripDetailSheet : BottomSheetDialogFragment() {
 
@@ -65,7 +66,7 @@ class TripDetailSheet : BottomSheetDialogFragment() {
     private fun bind(trip: TripDto) {
         binding.tripNumber.text = trip.tripNumber
         binding.tripRoute.text = trip.route
-        binding.tripStatus.text = FleetEnums.label(trip.status)
+        binding.tripStatus.applyStatus(trip.status)
         binding.tripAssignment.text =
             "${trip.vehicle.label} · ${trip.driver.fullName}"
         binding.plannedValue.text =

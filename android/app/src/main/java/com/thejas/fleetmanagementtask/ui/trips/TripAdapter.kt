@@ -9,6 +9,7 @@ import com.thejas.fleetmanagementtask.core.FleetEnums
 import com.thejas.fleetmanagementtask.data.remote.dto.TripDto
 import com.thejas.fleetmanagementtask.databinding.ItemTripBinding
 import com.thejas.fleetmanagementtask.ui.common.formatInstant
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class TripAdapter(
     private val onClick: (TripDto) -> Unit,
@@ -30,7 +31,7 @@ class TripAdapter(
                 formatInstant(trip.scheduledStart),
                 trip.distanceKm?.let { "$it km" },
             ).joinToString(" · ")
-            tripStatus.text = FleetEnums.label(trip.status)
+            tripStatus.applyStatus(trip.status)
             root.setOnClickListener { onClick(trip) }
         }
     }

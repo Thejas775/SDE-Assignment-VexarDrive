@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.thejas.fleetmanagementtask.data.remote.dto.RecentIncidentDto
 import com.thejas.fleetmanagementtask.databinding.ItemRecentIncidentBinding
+import com.thejas.fleetmanagementtask.ui.common.applyStatus
 
 class RecentIncidentAdapter : ListAdapter<RecentIncidentDto, RecentIncidentAdapter.Holder>(Diff) {
 
@@ -21,7 +22,7 @@ class RecentIncidentAdapter : ListAdapter<RecentIncidentDto, RecentIncidentAdapt
         holder.binding.incidentTitle.text = incident.title
         holder.binding.incidentMeta.text =
             "${incident.registrationNumber} · ${incident.status} · ${incident.reportedAt}"
-        holder.binding.incidentSeverity.text = incident.severity
+        holder.binding.incidentSeverity.applyStatus(incident.severity)
     }
 
     private object Diff : DiffUtil.ItemCallback<RecentIncidentDto>() {

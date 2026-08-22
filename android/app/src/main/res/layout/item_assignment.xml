@@ -22,7 +22,7 @@
         tools:text="2026-08-22 → 2026-09-21" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/assignmentStatus" style="@style/Widget.Material3.Chip.Assist"
+        android:id="@+id/assignmentStatus" style="@style/Widget.Fleet.Chip.Status"
         android:layout_width="wrap_content" android:layout_height="30dp" android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" tools:text="Active" />
