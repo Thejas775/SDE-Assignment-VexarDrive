@@ -102,6 +102,19 @@ Fleet Management Test/
 
 MVVM: View → ViewModel → Repository → APIClient, mirroring the Android app.
 
+## Apple platform notes
+
+Everything is first-party; there is not a single third-party dependency.
+
+| Concern | What it uses |
+| --- | --- |
+| UI | SwiftUI, `NavigationStack`, `List`, `.searchable`, `.refreshable` |
+| Concurrency | Swift `async`/`await`, with an `actor` guarding token refresh |
+| Networking | `URLSession` and `Codable` - no Alamofire, no third-party JSON |
+| Secure storage | Keychain Services (`kSecClassGenericPassword`) from the Security framework |
+| Maps | MapKit, `MKPolyline` through `UIViewRepresentable` |
+| Tests | XCTest and XCUITest, with `URLProtocol` stubbing the network |
+
 ## What is implemented
 
 **Login** — client-side validation before any request; email lowercased and
